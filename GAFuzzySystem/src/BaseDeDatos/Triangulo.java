@@ -1,0 +1,108 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package BaseDeDatos;
+
+/**
+ * Define una etiqueta lingüística.
+ * @author ana
+ */
+public class Triangulo {
+    /**
+     * Guarda las coordenadas de la etiqueta lingüística
+     */
+    private double x0, x1, x2;
+    
+    private double punto_medio;
+    
+    /**
+     * Identifica a qué antecedente o consecuente hace referencia la etiqueta
+     */
+    private int id = 0;
+    
+    public Triangulo(double x0, double x1, double x2, int id) {
+        this.x0 = x0;
+        this.x1 = x1;
+        this.x2 = x2;
+        punto_medio = x1;
+        this.id = id;
+    }
+
+    public double getX0() {
+        return x0;
+    }
+
+    public void setX0(double x0) {
+        this.x0 = x0;
+    }
+
+    public double getX1() {
+        return x1;
+    }
+
+    public void setX1(double x1) {
+        this.x1 = x1;
+    }
+
+    public double getX2() {
+        return x2;
+    }
+
+    public void setX2(double x2) {
+        this.x2 = x2;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getPunto_medio() {
+        return punto_medio;
+    }
+
+    public void setPunto_medio(double punto_medio) {
+        this.punto_medio = punto_medio;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + (int) (Double.doubleToLongBits(this.x0) ^ (Double.doubleToLongBits(this.x0) >>> 32));
+        hash = 71 * hash + (int) (Double.doubleToLongBits(this.x1) ^ (Double.doubleToLongBits(this.x1) >>> 32));
+        hash = 71 * hash + (int) (Double.doubleToLongBits(this.x2) ^ (Double.doubleToLongBits(this.x2) >>> 32));
+        hash = 71 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Triangulo other = (Triangulo) obj;
+        if (Double.doubleToLongBits(this.x0) != Double.doubleToLongBits(other.x0)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.x1) != Double.doubleToLongBits(other.x1)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.x2) != Double.doubleToLongBits(other.x2)) {
+            return false;
+        }
+        return this.id == other.id;
+    }
+    
+    
+}
