@@ -5,9 +5,14 @@
  */
 package Tuning;
 
+import BaseDeConocimiento.KnowledgeBase;
 import gafuzzysystem.Params;
 import java.util.ArrayList;
 import java.util.Collections;
+import BaseDeDatos.DataBase;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import read.ReadTraining;
 
 /**
  * Representa a un individuo de la población del algoritmo genético, es decir, 
@@ -26,6 +31,8 @@ public class Individuo implements Comparable<Individuo>{
      * ECM (error cuadrático medio)
      */
     private double ev;
+    
+    private KnowledgeBase kb;
     
     public final int GENES = Params.NUM_ETQ;
     
@@ -53,10 +60,25 @@ public class Individuo implements Comparable<Individuo>{
      * Evalua el cromosoma mediante el ECM 
      */
     public void evaluar(){
-        /**
-         * Implementar el cálculo del error cuadrático medio
-         * MSE = (1/2*dataSetSize)*sumatorio[(salida_obtenida-salida_esperada)^2]
-         */
+        try {
+            /**
+             * Implementar el cálculo del error cuadrático medio
+             * MSE = (1/2*dataSetSize)*sumatorio[(salida_obtenida-salida_esperada)^2]
+             */
+            DataBase db_original = kb.getDb();
+            DataBase db_copia = (DataBase) db_original.clone();
+            db_original.tuningDataBase(cromosoma);
+            
+            String ruta = "src/Files/ELE1.tra";
+            ReadTraining rt = new ReadTraining(db_copia, kb.getRb(), ruta);
+            rt.read();
+            
+            ev = rt.getECM();
+            
+            
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Individuo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

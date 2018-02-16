@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/ana/Escritorio/Máster/1º/1%20cuatrimestre/Inteligencia%20Computacional/Práctica/GAFuzzySystem/src/Tuning/Individuo.java</file>
-            <file>file:/home/ana/Escritorio/Máster/1º/1%20cuatrimestre/Inteligencia%20Computacional/Práctica/GAFuzzySystem/src/InterfazDeDefuzzificacion/Defuzzification.java</file>
-            <file>file:/home/ana/Escritorio/Máster/1º/1%20cuatrimestre/Inteligencia%20Computacional/Práctica/GAFuzzySystem/src/Tuning/CHC.java</file>
+            <file>file:/home/ana/Escritorio/Máster/1º/1%20cuatrimestre/Inteligencia%20Computacional/Práctica/GAFuzzySystem/src/read/ReadTraining.java</file>
             <file>file:/home/ana/Escritorio/Máster/1º/1%20cuatrimestre/Inteligencia%20Computacional/Práctica/GAFuzzySystem/src/gafuzzysystem/GAFuzzySystem.java</file>
+            <file>file:/home/ana/Escritorio/Máster/1º/1%20cuatrimestre/Inteligencia%20Computacional/Práctica/GAFuzzySystem/src/BaseDeDatos/DataBase.java</file>
+            <file>file:/home/ana/Escritorio/Máster/1º/1%20cuatrimestre/Inteligencia%20Computacional/Práctica/GAFuzzySystem/src/Files/ELE1.wm</file>
         </group>
     </open-files>
 </project-private>
