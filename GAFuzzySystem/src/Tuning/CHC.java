@@ -7,6 +7,7 @@ package Tuning;
 
 import gafuzzysystem.Params;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -61,19 +62,20 @@ public class CHC {
             
             /* seleccionar los individuos que formarán la nueva población P(t) 
             a partir de C'(t) y P(t-1)*/
-            
+            Collections.sort(current_population);   // ordena la población en orden decreciente en función de ev.
+            ArrayList<Individuo> elite = (ArrayList<Individuo>) current_population.subList(0, POPULATION_SIZE); // cogemos a la élite de la población
             
             // multiarranque
-            /*if(P(t) equals P(t-1)){
-                umbral_cruce--;
-            }
+            if(elite.equals(population)){    // si(P(t) equals P(t-1))
+                umbral_cruce--;  
+            }            
+            population.clear();
+            population = new ArrayList<>(elite);    // P(t)
             if(umbral_cruce < 0){
-                diverge();
-                int umbral_cruce = L/4;
-            }*/
-            
+                diverge(elite.get(0));
+                umbral_cruce = L/4;
+            }            
         }
-        
     }
 
     /**
@@ -93,11 +95,11 @@ public class CHC {
         
         while(contador < POPULATION_SIZE) {
             ind = new Individuo();
-            /*for(int i=0; i<ind.GENES; i++){
+            for(int i=0; i<ind.GENES; i++){
                 // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
                 double random = MIN_TUNING + (MAX_TUNING - MIN_TUNING) * rnd.nextDouble();
                 ind.getCromosoma().add(random);
-            }*/
+            }
             ind.evaluar();
            
             if(!population.contains(ind)){
@@ -148,8 +150,34 @@ public class CHC {
         current_population.addAll(hijos);   // C'(t)
     }
 
-    private void diverge() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * Mantiene al mejor cromosoma y los restantes se generan aleatoriamente. Este 
+     * método trata evitar caer en óptimos locales.
+     * @param theBest Mejor individuo de la población que permanecerá en la nueva
+     */
+    private void diverge(Individuo theBest) {
+        // creamos una nueva población vacía
+        population.clear();
+        population = new ArrayList<>(POPULATION_SIZE);
+        // añadimos el mejor elemento de la antigua población
+        population.add(theBest);
+        
+        int contador = 1;
+        // generamos el resto de la población con individuos aleatorios
+        while(contador < POPULATION_SIZE) {
+            Individuo ind = new Individuo();
+            for(int i=0; i<ind.GENES; i++){
+                // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+                double random = MIN_TUNING + (MAX_TUNING - MIN_TUNING) * rnd.nextDouble();
+                ind.getCromosoma().add(random);
+            }
+            ind.evaluar();
+           
+            if(!population.contains(ind)){
+                population.add(ind);
+                contador++;
+            }
+        } 
     }
     
 }
