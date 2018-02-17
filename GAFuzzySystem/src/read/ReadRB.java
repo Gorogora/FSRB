@@ -131,6 +131,9 @@ public class ReadRB {
                 String[] tokens = linea.split(" "); // separamospor espacios   
                 ECMtra = Double.parseDouble(tokens[1].substring(0, tokens[1].length()-1));  //guardamos el ECMtra sin el punto del final
                 ECMtst = Double.parseDouble(tokens[3]);
+                
+                Params.setECMtra(ECMtra);
+                Params.setECMtst(ECMtst);
             }
             
         } catch (IOException ex) {

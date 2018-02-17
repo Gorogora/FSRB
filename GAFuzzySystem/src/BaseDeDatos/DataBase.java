@@ -12,7 +12,7 @@ import java.util.Hashtable;
  * Define los conjuntos difusos.
  * @author ana
  */
-public class DataBase {
+public class DataBase implements Cloneable{
     
     /**
      * Almacena las etiquetas lingüísticas de cada una de las variables de entrada.
@@ -41,14 +41,15 @@ public class DataBase {
             t.setX1(t.getX1() + cromosoma.get(index));
             index++;
             t.setX2(t.getX2() + cromosoma.get(index));
-            index++;            
+            index++; 
+            baseDatos.put(i, t);            
         }
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         Object clone = null;
-        super.clone();
+        clone = super.clone();        
         ((DataBase)clone).setBaseDatos((Hashtable)baseDatos.clone());
         return clone;
     }

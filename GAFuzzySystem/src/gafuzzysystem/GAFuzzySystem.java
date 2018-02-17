@@ -5,12 +5,17 @@
  */
 package gafuzzysystem;
 
+import BaseDeConocimiento.KnowledgeBase;
 import BaseDeDatos.DataBase;
+import BaseDeDatos.Triangulo;
 import BaseDeReglas.RuleBase;
 import InterfazDeDefuzzificacion.Defuzzification;
 import InterfazDeFuzzificacion.Fuzzification;
 import SistemaDeInferencia.InferenceSystem;
+import Tuning.CHC;
 import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import read.ReadRB;
 import read.ReadTraining;
 
@@ -31,6 +36,9 @@ public class GAFuzzySystem {
 
         ReadRB rrb = new ReadRB(db, rb);
         rrb.read(args[0]);
+        
+        KnowledgeBase kb = new KnowledgeBase(rb, db); 
+        
         
         switch (numArgs) {
             case 2:
@@ -74,6 +82,12 @@ public class GAFuzzySystem {
 
                 System.out.println("Salida: " + defuzzy.getSalida());
                 break;
+                
+            case 4: 
+                ReadTraining rt2 = new ReadTraining(db, rb, args[1]);
+                rt2.read();
+                CHC genetico = new CHC(rt2);
+                genetico.chc();
             default:
                 throw new AssertionError();
         }

@@ -9,6 +9,7 @@ import gafuzzysystem.Params;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import read.ReadTraining;
 
 /**
  * Codificación del algoritmo genético CHC acorde a las consideraciones del artículo 
@@ -27,9 +28,12 @@ public class CHC {
     
     private Random rnd;
     
-    public CHC(){
+    private ReadTraining rt;
+    
+    public CHC(ReadTraining rt){
         population = new ArrayList<>(POPULATION_SIZE);
         rnd = new Random(123456789);
+        this.rt = rt;
     }
     
     public void chc(){
@@ -62,7 +66,7 @@ public class CHC {
             
             /* seleccionar los individuos que formarán la nueva población P(t) 
             a partir de C'(t) y P(t-1)*/
-            Collections.sort(current_population);   // ordena la población en orden decreciente en función de ev.
+            Collections.sort(current_population, Collections.reverseOrder());   // ordena la población en orden ascendente en función de ev, es decir, el individuio con ev=1 estará antes que el que tenga ev=2
             ArrayList<Individuo> elite = (ArrayList<Individuo>) current_population.subList(0, POPULATION_SIZE); // cogemos a la élite de la población
             
             // multiarranque
@@ -89,12 +93,12 @@ public class CHC {
         
         /* El primer individuo de la población contendrá la solución actual (no 
         modificar las etiquetas) y, por tanto, sus genes estarán todos a cero */
-        ind = new Individuo();
+        ind = new Individuo(rt);
         ind.evaluar();
         population.add(ind);
         
         while(contador < POPULATION_SIZE) {
-            ind = new Individuo();
+            ind = new Individuo(rt);
             for(int i=0; i<ind.GENES; i++){
                 // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
                 double random = MIN_TUNING + (MAX_TUNING - MIN_TUNING) * rnd.nextDouble();
@@ -121,8 +125,8 @@ public class CHC {
             Individuo madre = current_population.get(i);
             Individuo padre = current_population.get(i+1);
             
-            Individuo hijo1 = new Individuo();
-            Individuo hijo2 = new Individuo();
+            Individuo hijo1 = new Individuo(rt);
+            Individuo hijo2 = new Individuo(rt);
             
             for(int j=0; j<madre.GENES; j++){
                 double px = madre.getCromosoma().get(j);
@@ -165,7 +169,7 @@ public class CHC {
         int contador = 1;
         // generamos el resto de la población con individuos aleatorios
         while(contador < POPULATION_SIZE) {
-            Individuo ind = new Individuo();
+            Individuo ind = new Individuo(rt);
             for(int i=0; i<ind.GENES; i++){
                 // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
                 double random = MIN_TUNING + (MAX_TUNING - MIN_TUNING) * rnd.nextDouble();

@@ -13,7 +13,7 @@ public class Params {
     /**
      * Número de reglas
      */
-    public static int R=0;
+    public static int R;
     
     /**
      * Número de variables de entradas
@@ -27,7 +27,11 @@ public class Params {
      */
     public static int OUTPUTS = 1;
     
-    public static int NUM_ETQ = 0;
+    public static int NUM_ETQ;
+    
+    public static double ECMtra;
+    
+    public static double ECMtst;
 
     public static void setR(int R) {
         Params.R = R;
@@ -43,6 +47,14 @@ public class Params {
     
     public static void setNUMETQ(int NUM_ETQ){
         Params.NUM_ETQ = NUM_ETQ;
+    }
+
+    public static void setECMtra(double ECMtra) {
+        Params.ECMtra = ECMtra;
+    }
+
+    public static void setECMtst(double ECMtst) {
+        Params.ECMtst = ECMtst;
     }
     
 }

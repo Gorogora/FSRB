@@ -21,6 +21,11 @@ public class KnowledgeBase {
         rb = new RuleBase();
     }
 
+    public KnowledgeBase(RuleBase rb, DataBase db) {
+        this.db = db;
+        this.rb = rb;
+    }
+
     public DataBase getDb() {
         return db;
     }

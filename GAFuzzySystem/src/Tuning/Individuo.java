@@ -32,12 +32,24 @@ public class Individuo implements Comparable<Individuo>{
      */
     private double ev;
     
-    private KnowledgeBase kb;
+    /**
+     * Base de datos original. 
+     */
+    private DataBase db_original;   //sobre esta base de datos se puede trabajar sin importar si se modifica
+    
+    private ReadTraining rt;
     
     public final int GENES = Params.NUM_ETQ;
     
-    public Individuo(){
+    public Individuo(ReadTraining rt){
         cromosoma = new ArrayList<>(GENES);
+        try {
+            db_original = (DataBase) rt.getDb().clone();
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(Individuo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.rt = rt;
     }
 
     public ArrayList<Double> getCromosoma() {
@@ -61,21 +73,11 @@ public class Individuo implements Comparable<Individuo>{
      */
     public void evaluar(){
         try {
-            /**
-             * Implementar el cálculo del error cuadrático medio
-             * MSE = (1/2*dataSetSize)*sumatorio[(salida_obtenida-salida_esperada)^2]
-             */
-            DataBase db_original = kb.getDb();
             DataBase db_copia = (DataBase) db_original.clone();
-            db_original.tuningDataBase(cromosoma);
-            
-            String ruta = "src/Files/ELE1.tra";
-            ReadTraining rt = new ReadTraining(db_copia, kb.getRb(), ruta);
-            rt.read();
-            
+            db_copia.tuningDataBase(cromosoma);   
+            rt.setDb(db_copia);
             ev = rt.getECM();
-            
-            
+            rt.setDb(db_original);
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Individuo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,25 +102,5 @@ public class Individuo implements Comparable<Individuo>{
         else{
             return 1;
         }
-    }
-    
-    public static void main(String[] args) {
-        Individuo i1 = new Individuo();
-        i1.setEv(1);
-        Individuo i2 = new Individuo();
-        i2.setEv(2);
-        ArrayList<Individuo> poblacion = new ArrayList<>();
-        poblacion.add(i1);
-        poblacion.add(i2);
-        
-        // ordena la colección en orden descendente de ev.
-        Collections.sort(poblacion);
-        for(Individuo i : poblacion){
-            System.out.println("Ev: " + i.getEv());
-        }
-        
-        
-    }
-    
-    
+    }   
 }
