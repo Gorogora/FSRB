@@ -23,6 +23,7 @@ public class CHC {
     private final double MAX_TUNING = 0.5;
     private final double MIN_TUNING = -0.5;
     private final double ALPHA = 0.5;
+    private final int L = Params.NUM_ETQ; // L = longitud del cromosoma
     
     private ArrayList<Individuo> population;
     
@@ -30,16 +31,17 @@ public class CHC {
     
     private ReadTraining rt;
     
+    private int umbral_cruce;
+    
     public CHC(ReadTraining rt){
         population = new ArrayList<>(POPULATION_SIZE);
         rnd = new Random(123456789);
-        this.rt = rt;
+        this.rt = rt;        
+        umbral_cruce = L/4;
     }
     
     public void chc(){
         int iterations = 0;
-        int L = Params.NUM_ETQ; // L = longitud del cromosoma
-        int umbral_cruce = L/4;
         
         // inicializa la población P(t) y evaluar los individuos de la misma
         inicializar();
@@ -118,40 +120,59 @@ public class CHC {
      * @param current_population 
      */
     private void blx_cross(ArrayList<Individuo> current_population) {
-        
-        ArrayList<Individuo> hijos = new ArrayList<>();
+       ArrayList<Individuo> hijos = new ArrayList<>();
         
         for(int i=0; i<POPULATION_SIZE/2; i++){
-            Individuo madre = current_population.get(i);
-            Individuo padre = current_population.get(i+1);
+            Individuo madre = current_population.get(2*i);
+            Individuo padre = current_population.get(2*i+1);
             
-            Individuo hijo1 = new Individuo(rt);
-            Individuo hijo2 = new Individuo(rt);
-            
-            for(int j=0; j<madre.GENES; j++){
-                double px = madre.getCromosoma().get(j);
-                double py = padre.getCromosoma().get(j);
-                
-                double I = Math.abs(px-py);
-                double cmin = Double.min(px, py);
-                double cmax = Double.max(px, py);
-                
-                // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
-                double min = cmin - I * ALPHA;
-                double max = cmax + I * ALPHA;
-                double genValue = min + (max - min) * rnd.nextDouble();
-                hijo1.getCromosoma().add(j, genValue);
-                hijo1.evaluar();
-                genValue = min + (max - min) * rnd.nextDouble();
-                hijo2.getCromosoma().add(j,genValue);
-                hijo2.evaluar();
-                
-                hijos.add(hijo1);
-                hijos.add(hijo2);
+            if(HammingDistance(padre, madre)/2 > umbral_cruce){
+                Individuo hijo1 = new Individuo(rt);
+                Individuo hijo2 = new Individuo(rt);
+
+                for(int j=0; j<madre.GENES; j++){
+                    double px = madre.getCromosoma().get(j);
+                    double py = padre.getCromosoma().get(j);
+
+                    double I = Math.abs(px-py);
+                    double cmin = Double.min(px, py);
+                    double cmax = Double.max(px, py);
+
+                    // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+                    double min = cmin - I * ALPHA;
+                    double max = cmax + I * ALPHA;
+                    double genValue = min + (max - min) * rnd.nextDouble();
+                    hijo1.getCromosoma().add(j, genValue);
+                    hijo1.evaluar();
+                    genValue = min + (max - min) * rnd.nextDouble();
+                    hijo2.getCromosoma().add(j,genValue);
+                    hijo2.evaluar();
+
+                    hijos.add(hijo1);
+                    hijos.add(hijo2);
+                }
+            }            
+        }
+        
+        current_population.addAll(hijos);   // C'(t)        
+    }
+    
+    /**
+     * Calcula el número de genes en los que difieren dos individuos.
+     * @param padre Individuo a comparar.
+     * @param madre Individuo a comparar.
+     * @return Número de genes en los que difieren dos individuos.
+     */
+    private int HammingDistance(Individuo padre, Individuo madre) {
+        int distance = 0;
+        
+        for(int i=0; i<padre.GENES; i++){
+            if(padre.getCromosoma().get(i) != madre.getCromosoma().get(i)){
+                distance++;
             }
         }
         
-        current_population.addAll(hijos);   // C'(t)
+        return distance;
     }
 
     /**
@@ -183,5 +204,7 @@ public class CHC {
             }
         } 
     }
+
+    
     
 }
