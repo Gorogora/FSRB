@@ -29,19 +29,19 @@ public class GAFuzzySystem {
      */
     public static void main(String[] args) throws FileNotFoundException {
         int numArgs = args.length;
+        
         DataBase db = new DataBase();
+        ReadPWM rpwm = new ReadPWM(db);
+        rpwm.read(Params.PWM_PATH);
+        System.out.println(db.getBaseDatos().size());
+        
         RuleBase rb = new RuleBase();
         
-        
-        ReadPWM rpwm = new ReadPWM(db);
-        rpwm.read("src/Files/ELE1.pwm");
-        System.out.println(db.getBaseDatos().size());
-
-        /*ReadRB rrb = new ReadRB(db, rb);
+        ReadRB rrb = new ReadRB(db, rb);
         rrb.read(args[0]);
         
         KnowledgeBase kb = new KnowledgeBase(rb, db); 
-        */
+        
         
         switch (numArgs) {
             case 1: 

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * Lee un fichero de extensión .tra
  * @author usuario
  */
-public class ReadTraining extends ReadDataSet{    
+public class ReadTraining extends ReadExamples{    
      
     public ReadTraining(DataBase db, RuleBase rb, String fileName){
         super(db, rb, fileName);

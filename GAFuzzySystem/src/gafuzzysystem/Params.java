@@ -27,11 +27,25 @@ public class Params {
      */
     public static final int OUTPUTS = 1;
     
+    /**
+     * Número total de etiquetas.
+     */
     public static int NUM_ETQ;
     
+    /**
+     * Error cuadrático medio del fichero de training.
+     */
     public static double ECMtra;
     
+    /**
+     * Error cuadrático medio del fichero de test.
+     */
     public static double ECMtst;
+    
+    /**
+     * Ruta del fichero resumen con la base de datos inicial.
+     */
+    public static final String PWM_PATH = "src/Files/ELE1.pwm";
 
     public static void setR(int R) {
         Params.R = R;

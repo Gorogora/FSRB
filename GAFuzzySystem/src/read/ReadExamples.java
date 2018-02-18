@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author ana
  */
-public abstract class ReadDataSet {
+public abstract class ReadExamples {
     
     protected DataBase db;
     protected RuleBase rb;
@@ -48,7 +48,7 @@ public abstract class ReadDataSet {
     protected FileReader fr;
     protected BufferedReader bf;
     
-    public ReadDataSet(DataBase db, RuleBase rb, String fileName){
+    public ReadExamples(DataBase db, RuleBase rb, String fileName){
         this.db = db;
         this.rb = rb;        
         

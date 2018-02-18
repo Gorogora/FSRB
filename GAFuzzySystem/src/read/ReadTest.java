@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author ana
  */
-public class ReadTest extends ReadDataSet{
+public class ReadTest extends ReadExamples{
     
     public ReadTest(DataBase db, RuleBase rb, String fileName){
         super(db, rb, fileName);

@@ -8,6 +8,7 @@ package read;
 import BaseDeDatos.DataBase;
 import BaseDeDatos.Triangulo;
 import BaseDeReglas.RuleBase;
+import Tuning.Individuo;
 import gafuzzysystem.Params;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -65,9 +66,10 @@ public class ReadRB {
             int it = 0;
             while(it < R){   
                 int j = 1;  //id del antecendente o consecuente al que pertenece
-                int[] keys = new int[3];
+                int[] keys = new int[Params.INPUTS + Params.OUTPUTS];
+                Triangulo[] triangulos = new Triangulo[Params.INPUTS + Params.OUTPUTS];
                 while(!(linea = bf.readLine()).equals("")){
-                    // guardar en la estructura cada una de las partes de la regla                    
+                    // guarda los apuntadores a las etiquetas que definen la regla                   
                     StringTokenizer st = new StringTokenizer(linea);
                     double datos[] =  new double[st.countTokens()];
                     int i = 0;
@@ -77,37 +79,20 @@ public class ReadRB {
                     }                    
                                           
                     Triangulo t = new Triangulo(datos[0], datos[1], datos[2], j);
-                    if(!db.getBaseDatos().containsValue(t)){
-                        db.getBaseDatos().put(key, t);
-                        keys[j-1] = key;
-                        //System.out.println("Key: " + key + " Value: " + datos[0] + "," + datos[1] + "," + datos[2] + "," + j + ",");
-                        key++;
-                    }
-                    else{
-                        for(int k : db.getBaseDatos().keySet()){
-                            if(db.getBaseDatos().get(k).equals(t)){
-                                keys[j-1] = k;
-                                break;
-                            }
-                        }                            
-                    }                   
+                    for(int k : db.getBaseDatos().keySet()){
+                        if(db.getBaseDatos().get(k).equals(t)){
+                            keys[j-1] = k;
+                            break;
+                        }
+                    }                                     
                     j++;                                       
                 } 
                 
-                /*
-                for(int w=0; w<keys.length; w++){
-                    if(keys[w] == 0){
-                        System.out.println("Es cerooooooo");
-                    }
-                }
-                */
                 baseReglas.add(keys);
                 it++;                
             } 
             
             rb.setBaseReglas(baseReglas);
-            
-            Params.setNUMETQ(db.getBaseDatos().size());
             
             /**
              * Lectura salida por defecto

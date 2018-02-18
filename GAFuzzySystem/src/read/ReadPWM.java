@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Lee un fichero de extensión .pwm que contiene la base de datos.
  * @author ana
  */
 public class ReadPWM {
@@ -51,9 +51,9 @@ public class ReadPWM {
             // leer lineas no necesarias
             bf.readLine();  //
             bf.readLine();  //Base de Datos inicial: 
-            bf.readLine();
+            bf.readLine();  //
             
-            int it = 0;
+            /*int it = 0;
             int key = 1;
             bf.readLine();  //Variable 1:
             StringTokenizer st = new StringTokenizer(bf.readLine());
@@ -63,7 +63,7 @@ public class ReadPWM {
                     st.nextToken(); //1:  
                     String dato = st.nextToken();   //(-52.166668,1.000000,54.166668)
                     String[] datos = dato.substring(1, dato.length()-1).split(",");  //-52.166668 1.000000 54.166668  
-                    Triangulo t = new Triangulo(Double.valueOf(datos[0]), Double.valueOf(datos[1]), Double.valueOf(datos[2]), it);
+                    Triangulo t = new Triangulo(Double.valueOf(datos[0]), Double.valueOf(datos[1]), Double.valueOf(datos[2]), j);
                     if(!db.getBaseDatos().containsValue(t)){
                             db.getBaseDatos().put(key, t);
                             key++;
@@ -73,6 +73,29 @@ public class ReadPWM {
                 it++;                
                 st = new StringTokenizer(bf.readLine());
                 
+            }
+            */
+            
+            int id = 1; //id del antecendente o consecuente al que pertenece
+            int key = 1;
+            while((linea = bf.readLine()) != null){                
+                if(linea.contains("Variable")){
+                    linea = bf.readLine();
+                    while(linea != null && !linea.equals("")){
+                        StringTokenizer st = new StringTokenizer(linea);    //Etiqueta 1: (-52.166668,1.000000,54.166668)
+                        st.nextToken(); //Etiqueta
+                        st.nextToken(); //1:
+                        String dato = st.nextToken();   //(-52.166668,1.000000,54.166668)
+                        String[] datos = dato.substring(1, dato.length()-1).split(",");  //-52.166668 1.000000 54.166668  
+                        Triangulo t = new Triangulo(Double.valueOf(datos[0]), Double.valueOf(datos[1]), Double.valueOf(datos[2]), id);
+                        if(!db.getBaseDatos().containsValue(t)){
+                            db.getBaseDatos().put(key, t);
+                            key++;
+                        }
+                        linea = bf.readLine();
+                    }
+                    id++;                    
+                }                
             }
             
             Params.setNUMETQ(db.getBaseDatos().size());
