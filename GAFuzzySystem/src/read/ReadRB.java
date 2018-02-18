@@ -107,6 +107,8 @@ public class ReadRB {
             
             rb.setBaseReglas(baseReglas);
             
+            Params.setNUMETQ(db.getBaseDatos().size());
+            
             /**
              * Lectura salida por defecto
              * Salida por defecto:   3877.500000

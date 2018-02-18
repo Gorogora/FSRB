@@ -31,17 +31,14 @@ public class DataBase implements Cloneable{
         this.baseDatos = baseDatos;
     }
     
-    public void tuningDataBase(ArrayList<Double> cromosoma){
-        int index = 0;
+    public void tuningDataBase(double[] cromosoma){
+        
         for(int i=1; i<=baseDatos.size(); i++){
             Triangulo t = baseDatos.get(i);   //recuperar el triángulo asociado a la clave
             // desplazamos el triángulo
-            t.setX0(t.getX0() + cromosoma.get(index));
-            index++;
-            t.setX1(t.getX1() + cromosoma.get(index));
-            index++;
-            t.setX2(t.getX2() + cromosoma.get(index));
-            index++; 
+            t.setX0(t.getX0() + cromosoma[i-1]);
+            t.setX1(t.getX1() + cromosoma[i-1]);
+            t.setX2(t.getX2() + cromosoma[i-1]);
             baseDatos.put(i, t);            
         }
     }

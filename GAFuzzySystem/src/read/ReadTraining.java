@@ -8,6 +8,7 @@ package read;
 import BaseDeDatos.DataBase;
 import BaseDeReglas.RuleBase;
 import java.io.IOException;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,13 +32,12 @@ public class ReadTraining extends ReadDataSet{
             
             // leer datos de entrenamiento
             int i=0;
-            while((linea = bf.readLine()) != null){  
+            while((linea = bf.readLine()) != null){ 
                 String[] tokens = linea.split("\t");                
                 
-                int t, j=0;
+                int t;
                 for(t=0; t<tokens.length-1; t++){
-                    inputs[i][j] = Double.parseDouble(tokens[t]);
-                    j++;
+                    inputs[i][t] = Double.parseDouble(tokens[t]);
                 }
                 
                 trueOutputs[i] = Double.parseDouble(tokens[t]);

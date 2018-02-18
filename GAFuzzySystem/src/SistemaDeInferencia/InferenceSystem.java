@@ -84,13 +84,13 @@ public class InferenceSystem {
         else if(t.getX0() < ejemplo && ejemplo < t.getX1()){
             h_ij = (ejemplo - t.getX0()) / (t.getX1() - t.getX0());
         }
-        else if(t.getX1() < ejemplo && ejemplo < t.getX2()){
+        else if(t.getX1() < ejemplo && ejemplo < t.getX1()){
             h_ij = 1;
         }
-        else if(t.getX2() < ejemplo && ejemplo < t.getX3()){
-            h_ij = (ejemplo - t.getX3()) / (t.getX2() - t.getX3());
+        else if(t.getX1() < ejemplo && ejemplo < t.getX2()){
+            h_ij = (ejemplo - t.getX2()) / (t.getX1() - t.getX2());
         }
-        else if(t.getX3() < ejemplo){
+        else if(t.getX2() < ejemplo){
             h_ij = 0;
         }
         

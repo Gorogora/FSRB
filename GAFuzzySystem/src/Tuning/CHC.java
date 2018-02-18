@@ -50,18 +50,21 @@ public class CHC {
         while(iterations < STOP){
             // t++
             // copiar los miembros de P(t-1) en C(t) en un orden random
+            System.out.println("Desordenar población");
             ArrayList<Individuo> current_population = new ArrayList<>(POPULATION_SIZE);
+            ArrayList<Integer> aleatorios = new ArrayList<>();
             for (int i = 0; i < POPULATION_SIZE; i++) {
                 int random = rnd.nextInt(POPULATION_SIZE);
                 Individuo aux = population.get(random);
                 
-                while(current_population.contains(aux)){
+                while(aleatorios.contains(random)){
                     random = rnd.nextInt(POPULATION_SIZE);
                     aux = population.get(random);
                 }
-                
+                aleatorios.add(random);
                 current_population.add(aux);    // C(t)
-            }   
+            } 
+            System.out.println("Población desordenada");
             
             // recombinar estructuras en C(t) formando C'(t) y evaluar a los nuevos individuos
             blx_cross(current_population);
@@ -69,18 +72,25 @@ public class CHC {
             /* seleccionar los individuos que formarán la nueva población P(t) 
             a partir de C'(t) y P(t-1)*/
             Collections.sort(current_population, Collections.reverseOrder());   // ordena la población en orden ascendente en función de ev, es decir, el individuio con ev=1 estará antes que el que tenga ev=2
-            ArrayList<Individuo> elite = (ArrayList<Individuo>) current_population.subList(0, POPULATION_SIZE); // cogemos a la élite de la población
+            //ArrayList<Individuo> elite = (ArrayList<Individuo>) current_population.subList(0, POPULATION_SIZE); // cogemos a la élite de la población
+            ArrayList<Individuo> elite = new ArrayList<>(current_population.subList(0, POPULATION_SIZE));
             
             // multiarranque
+            Collections.sort(population, Collections.reverseOrder());   //ordenamos a la población para poder compararlas
             if(elite.equals(population)){    // si(P(t) equals P(t-1))
-                umbral_cruce--;  
+                umbral_cruce--; 
+                System.out.println("Disminuir umbral de cruce");
             }            
             population.clear();
             population = new ArrayList<>(elite);    // P(t)
             if(umbral_cruce < 0){
                 diverge(elite.get(0));
                 umbral_cruce = L/4;
-            }            
+            }  
+            
+            Collections.sort(population, Collections.reverseOrder());
+            System.out.println("Iteración: " + iterations + " --> " + population.get(0).getEv());
+            iterations++;
         }
     }
 
@@ -90,6 +100,7 @@ public class CHC {
      * estarán todos a cero.
      */
     private void inicializar() {
+        System.out.println("Inicializando población");
         int contador = 1;
         Individuo ind;
         
@@ -104,10 +115,10 @@ public class CHC {
             for(int i=0; i<ind.GENES; i++){
                 // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
                 double random = MIN_TUNING + (MAX_TUNING - MIN_TUNING) * rnd.nextDouble();
-                ind.getCromosoma().add(random);
+                ind.getCromosoma()[i] = random;
             }
             ind.evaluar();
-           
+            
             if(!population.contains(ind)){
                 population.add(ind);
                 contador++;
@@ -120,37 +131,38 @@ public class CHC {
      * @param current_population 
      */
     private void blx_cross(ArrayList<Individuo> current_population) {
-       ArrayList<Individuo> hijos = new ArrayList<>();
+        System.out.println("Cruzando población");
+        ArrayList<Individuo> hijos = new ArrayList<>();
         
         for(int i=0; i<POPULATION_SIZE/2; i++){
             Individuo madre = current_population.get(2*i);
             Individuo padre = current_population.get(2*i+1);
             
-            if(HammingDistance(padre, madre)/2 > umbral_cruce){
+            if(HammingDistance(padre, madre)/2.0 > umbral_cruce){
                 Individuo hijo1 = new Individuo(rt);
                 Individuo hijo2 = new Individuo(rt);
 
                 for(int j=0; j<madre.GENES; j++){
-                    double px = madre.getCromosoma().get(j);
-                    double py = padre.getCromosoma().get(j);
-
-                    double I = Math.abs(px-py);
+                    double px = madre.getCromosoma()[j];
+                    double py = padre.getCromosoma()[j];
+                    
                     double cmin = Double.min(px, py);
                     double cmax = Double.max(px, py);
-
-                    // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+                    double I = cmax - cmin;
+                                        
                     double min = cmin - I * ALPHA;
                     double max = cmax + I * ALPHA;
+                    // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
                     double genValue = min + (max - min) * rnd.nextDouble();
-                    hijo1.getCromosoma().add(j, genValue);
+                    hijo1.getCromosoma()[j] = genValue;
                     hijo1.evaluar();
                     genValue = min + (max - min) * rnd.nextDouble();
-                    hijo2.getCromosoma().add(j,genValue);
-                    hijo2.evaluar();
-
-                    hijos.add(hijo1);
-                    hijos.add(hijo2);
+                    hijo2.getCromosoma()[j] = genValue;
+                    hijo2.evaluar();  
                 }
+                
+                hijos.add(hijo1);
+                hijos.add(hijo2);
             }            
         }
         
@@ -167,7 +179,7 @@ public class CHC {
         int distance = 0;
         
         for(int i=0; i<padre.GENES; i++){
-            if(padre.getCromosoma().get(i) != madre.getCromosoma().get(i)){
+            if(padre.getCromosoma()[i] != madre.getCromosoma()[i]){
                 distance++;
             }
         }
@@ -181,6 +193,7 @@ public class CHC {
      * @param theBest Mejor individuo de la población que permanecerá en la nueva
      */
     private void diverge(Individuo theBest) {
+        System.out.println("Multiarranque");
         // creamos una nueva población vacía
         population.clear();
         population = new ArrayList<>(POPULATION_SIZE);
@@ -194,7 +207,7 @@ public class CHC {
             for(int i=0; i<ind.GENES; i++){
                 // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
                 double random = MIN_TUNING + (MAX_TUNING - MIN_TUNING) * rnd.nextDouble();
-                ind.getCromosoma().add(random);
+                ind.getCromosoma()[i] = random;
             }
             ind.evaluar();
            
@@ -205,6 +218,8 @@ public class CHC {
         } 
     }
 
-    
+    public ArrayList<Individuo> getPopulation() {
+        return population;
+    }
     
 }

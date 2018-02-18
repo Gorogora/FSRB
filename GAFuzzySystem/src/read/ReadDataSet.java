@@ -50,8 +50,7 @@ public abstract class ReadDataSet {
     
     public ReadDataSet(DataBase db, RuleBase rb, String fileName){
         this.db = db;
-        this.rb = rb;
-        
+        this.rb = rb;        
         
         try {            
             fr = new FileReader(fileName);

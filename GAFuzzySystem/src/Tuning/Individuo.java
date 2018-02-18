@@ -5,13 +5,18 @@
  */
 package Tuning;
 
-import BaseDeConocimiento.KnowledgeBase;
 import gafuzzysystem.Params;
-import java.util.ArrayList;
-import java.util.Collections;
 import BaseDeDatos.DataBase;
+import BaseDeReglas.RuleBase;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import read.ReadPWM;
+import read.ReadRB;
+import read.ReadTest;
+import read.ReadPWM;
 import read.ReadTraining;
 
 /**
@@ -24,7 +29,7 @@ public class Individuo implements Comparable<Individuo>{
      * Cromosoma en el cual cada gen está asociado al valor de tuning 
      * correspondiente a una etiqueta.
      */
-    private ArrayList<Double> cromosoma;
+    private double[] cromosoma;
     
     /**
      * Evaluación del cromosoma. La evaluación se realizará con el cálculo del 
@@ -42,7 +47,13 @@ public class Individuo implements Comparable<Individuo>{
     public final int GENES = Params.NUM_ETQ;
     
     public Individuo(ReadTraining rt){
-        cromosoma = new ArrayList<>(GENES);
+        cromosoma = new double[GENES];
+        for(int i=0; i<GENES; i++){
+            cromosoma[i] = 0.0;
+        }
+        /*System.out.println("Genes: " + GENES);
+        System.out.println("NUM_ETQ: " + Params.NUM_ETQ);
+        System.out.println("Longitud cromosoma: " + cromosoma.size());*/
         try {
             db_original = (DataBase) rt.getDb().clone();
         } catch (CloneNotSupportedException ex) {
@@ -52,11 +63,11 @@ public class Individuo implements Comparable<Individuo>{
         this.rt = rt;
     }
 
-    public ArrayList<Double> getCromosoma() {
+    public double[] getCromosoma() {
         return cromosoma;
     }
 
-    public void setCromosoma(ArrayList<Double> solucion) {
+    public void setCromosoma(double[] solucion) {
         this.cromosoma = solucion;
     }
 
@@ -102,5 +113,75 @@ public class Individuo implements Comparable<Individuo>{
         else{
             return 1;
         }
-    }   
+    }  
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Arrays.hashCode(this.cromosoma);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Individuo other = (Individuo) obj;
+        if (!Arrays.equals(this.cromosoma, other.cromosoma)) {
+            return false;
+        }
+        return true;
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException {
+        /*DataBase db = new DataBase();
+        RuleBase rb = new RuleBase();
+
+        ReadRB rrb = new ReadRB(db, rb);
+        rrb.read("src/Files/ELE1.wm");
+        System.out.println(db.getBaseDatos().size());
+        ReadTraining rt = new ReadTraining(db, rb, "src/Files/ELE1.tra");
+        rt.read();
+        System.out.println(rt.getECM());
+        
+        ReadTest rtst = new ReadTest(db, rb, "src/Files/ELE1.tst");
+        rtst.read();
+        System.out.println(rtst.getECM());
+        
+        ArrayList<Individuo> population = new ArrayList<>();
+        
+        Individuo i1 = new Individuo(rt);
+        Individuo i2 = new Individuo(rt);
+        
+        System.out.println(i1.equals(i2));
+        
+        population.add(i1);
+        System.out.println(population.contains(i2));
+        
+        i1.evaluar();
+        i2.evaluar();
+        System.out.println(i1.equals(i2));
+        
+        i1.getCromosoma()[0] = 0.4;
+        i1.evaluar();
+        System.out.println(i1.equals(i2));
+        
+        i2.getCromosoma()[0] = 0.4;
+        i2.evaluar();
+        System.out.println(i1.equals(i2));
+        */
+        
+        DataBase db = new DataBase();
+        ReadPWM rpwm = new ReadPWM(db);
+        rpwm.read("src/Files/ELE1.pwm");
+        System.out.println(db.getBaseDatos().size());
+        
+    }
 }

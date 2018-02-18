@@ -7,15 +7,13 @@ package gafuzzysystem;
 
 import BaseDeConocimiento.KnowledgeBase;
 import BaseDeDatos.DataBase;
-import BaseDeDatos.Triangulo;
 import BaseDeReglas.RuleBase;
 import InterfazDeDefuzzificacion.Defuzzification;
 import InterfazDeFuzzificacion.Fuzzification;
 import SistemaDeInferencia.InferenceSystem;
 import Tuning.CHC;
 import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import read.ReadPWM;
 import read.ReadRB;
 import read.ReadTraining;
 
@@ -33,23 +31,39 @@ public class GAFuzzySystem {
         int numArgs = args.length;
         DataBase db = new DataBase();
         RuleBase rb = new RuleBase();
+        
+        
+        ReadPWM rpwm = new ReadPWM(db);
+        rpwm.read("src/Files/ELE1.pwm");
+        System.out.println(db.getBaseDatos().size());
 
-        ReadRB rrb = new ReadRB(db, rb);
+        /*ReadRB rrb = new ReadRB(db, rb);
         rrb.read(args[0]);
         
         KnowledgeBase kb = new KnowledgeBase(rb, db); 
-        
+        */
         
         switch (numArgs) {
+            case 1: 
+                /*ReadTraining rt2 = new ReadTraining(db, rb, args[1]);
+                rt2.read();
+                CHC genetico = new CHC(rt2);
+                genetico.chc();*/
+                break;
             case 2:
                 /**
                 * args[0]: ruta fichero de reglas = "src/Files/ELE1.wm"
                 * args[1]: ruta fichero entrenamiento = "src/Files/ELE1.tra"
                 */
-                ReadTraining rt = new ReadTraining(db, rb, args[1]);
+                /*ReadTraining rt = new ReadTraining(db, rb, args[1]);
                 rt.read();
                 
-                System.out.println(rt.getECM());
+                System.out.println(rt.getECM());*/
+                
+                ReadTraining rt2 = new ReadTraining(db, rb, args[1]);
+                rt2.read();
+                CHC genetico = new CHC(rt2);
+                genetico.chc();
                 
                 break;
             case 3:
@@ -83,11 +97,7 @@ public class GAFuzzySystem {
                 System.out.println("Salida: " + defuzzy.getSalida());
                 break;
                 
-            case 4: 
-                ReadTraining rt2 = new ReadTraining(db, rb, args[1]);
-                rt2.read();
-                CHC genetico = new CHC(rt2);
-                genetico.chc();
+            
             default:
                 throw new AssertionError();
         }
