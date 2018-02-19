@@ -47,7 +47,7 @@ public class CHC {
         inicializar();
         
         // mientras no se cumpla la condición de parada
-        while(iterations < STOP){
+        while(population.get(0).getEv() >= Params.ECMtra){    //iterations < STOP
             // t++
             // copiar los miembros de P(t-1) en C(t) en un orden random
             System.out.println("Desordenar población");

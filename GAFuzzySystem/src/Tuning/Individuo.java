@@ -48,12 +48,6 @@ public class Individuo implements Comparable<Individuo>{
     
     public Individuo(ReadTraining rt){
         cromosoma = new double[GENES];
-        for(int i=0; i<GENES; i++){
-            cromosoma[i] = 0.0;
-        }
-        /*System.out.println("Genes: " + GENES);
-        System.out.println("NUM_ETQ: " + Params.NUM_ETQ);
-        System.out.println("Longitud cromosoma: " + cromosoma.size());*/
         try {
             db_original = (DataBase) rt.getDb().clone();
         } catch (CloneNotSupportedException ex) {

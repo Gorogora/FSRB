@@ -30,16 +30,19 @@ public class GAFuzzySystem {
     public static void main(String[] args) throws FileNotFoundException {
         int numArgs = args.length;
         
+        // cargar la base de datos
         DataBase db = new DataBase();
         ReadPWM rpwm = new ReadPWM(db);
         rpwm.read(Params.PWM_PATH);
         System.out.println(db.getBaseDatos().size());
         
-        RuleBase rb = new RuleBase();
-        
+        // cargar la base de reglas
+        RuleBase rb = new RuleBase();        
         ReadRB rrb = new ReadRB(db, rb);
         rrb.read(args[0]);
+        System.out.println(rb.getBaseReglas().size());
         
+        // crear la base de conocimiento
         KnowledgeBase kb = new KnowledgeBase(rb, db); 
         
         

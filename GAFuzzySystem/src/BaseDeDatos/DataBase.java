@@ -39,6 +39,7 @@ public class DataBase implements Cloneable{
             t.setX0(t.getX0() + cromosoma[i-1]);
             t.setX1(t.getX1() + cromosoma[i-1]);
             t.setX2(t.getX2() + cromosoma[i-1]);
+            t.calcularPuntoMedio();
             baseDatos.put(i, t);            
         }
     }

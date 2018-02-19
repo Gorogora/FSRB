@@ -26,7 +26,7 @@ public class Triangulo {
         this.x0 = x0;
         this.x1 = x1;
         this.x2 = x2;
-        punto_medio = x1;
+        punto_medio = (x2-x0) / 2;
         this.id = id;
     }
 
@@ -102,6 +102,10 @@ public class Triangulo {
             return false;
         }
         return this.id == other.id;
+    }
+
+    void calcularPuntoMedio() {
+        punto_medio = (x2-x0) / 2;
     }
     
     

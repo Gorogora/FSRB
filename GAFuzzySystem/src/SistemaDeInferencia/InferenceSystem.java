@@ -32,14 +32,15 @@ public class InferenceSystem {
         this.fuzzy = fuzzy;
         this.db = db;
         this.rb = rb;
-        matching = new ArrayList<>(Params.R);
-        pmv = new ArrayList<>(Params.R);
+        matching = new ArrayList<>();   
+        pmv = new ArrayList<>();
     }
     
     public void inferir(){
         for(int[] rule : rb.getBaseReglas()){
             double local_matchings[] = new double[Params.INPUTS];
             int l=0;
+            boolean haEntrado = false;
             for(int i=0; i< fuzzy.getFuzzyArgs().size(); i++){
                 /**
                 * Coger el antecedente de la regla y mirar si la variable de entrada 
@@ -50,19 +51,23 @@ public class InferenceSystem {
                 }
                 else{
                     local_matchings[l] = 0;
+                    haEntrado = true;
                 }
                 l++;
             }
             
-            // Calcular el grado de emparejamiento de la regla
-            calcular_emparejamiento(local_matchings, Params.OPERADOR_CONJUNCION);
             
-            /**
-             * Como sólo vamos a tener un consecuente guardamos directamente el 
-             * punto medio del mismo
-             */
-            Triangulo t = db.getBaseDatos().get(rule[rule.length-1]);
-            pmv.add(t.getPunto_medio());            
+            // Calcular el grado de emparejamiento de la regla
+            if(haEntrado == false){
+                calcular_emparejamiento(local_matchings, Params.OPERADOR_CONJUNCION);
+            
+                /**
+                 * Como sólo vamos a tener un consecuente guardamos directamente el 
+                 * punto medio del mismo
+                 */
+                Triangulo t = db.getBaseDatos().get(rule[rule.length-1]);
+                pmv.add(t.getPunto_medio());   
+            }                     
            
         }
     }

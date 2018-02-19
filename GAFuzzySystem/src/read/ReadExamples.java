@@ -63,8 +63,8 @@ public abstract class ReadExamples {
             trueOutputs = new double[exampleNumber];
             // entradas + salidas
             int inout = Integer.parseInt(bf.readLine());
-            Params.setINPUTS(inout-1);
-            inputs = new double[exampleNumber][inout-1];
+            //Params.setINPUTS(inout-1);
+            inputs = new double[exampleNumber][Params.INPUTS];
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadTraining.class.getName()).log(Level.SEVERE, null, ex);

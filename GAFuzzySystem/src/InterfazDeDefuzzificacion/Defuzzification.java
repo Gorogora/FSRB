@@ -35,7 +35,7 @@ public class Defuzzification {
     public void defuzzificar(){
         double dividendo=0, divisor=0;
         
-        for(int i=0; i<Params.R; i++){
+        for(int i=0; i<is.getPmv().size(); i++){  //estaba i<Params.R
             dividendo += is.getMatching().get(i) * is.getPmv().get(i);
             divisor += is.getMatching().get(i);
         }
