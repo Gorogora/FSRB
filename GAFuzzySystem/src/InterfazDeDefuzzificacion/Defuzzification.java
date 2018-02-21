@@ -6,7 +6,6 @@
 package InterfazDeDefuzzificacion;
 
 import SistemaDeInferencia.InferenceSystem;
-import gafuzzysystem.Params;
 
 /**
  * Convierte la salida del sistema de inferencia en un único valor real.
@@ -35,7 +34,7 @@ public class Defuzzification {
     public void defuzzificar(){
         double dividendo=0, divisor=0;
         
-        for(int i=0; i<is.getPmv().size(); i++){  //estaba i<Params.R
+        for(int i=0; i<is.getPmv().size(); i++){  
             dividendo += is.getMatching().get(i) * is.getPmv().get(i);
             divisor += is.getMatching().get(i);
         }

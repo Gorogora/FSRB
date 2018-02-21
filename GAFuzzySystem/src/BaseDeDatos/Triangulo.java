@@ -72,11 +72,12 @@ public class Triangulo {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 71 * hash + (int) (Double.doubleToLongBits(this.x0) ^ (Double.doubleToLongBits(this.x0) >>> 32));
-        hash = 71 * hash + (int) (Double.doubleToLongBits(this.x1) ^ (Double.doubleToLongBits(this.x1) >>> 32));
-        hash = 71 * hash + (int) (Double.doubleToLongBits(this.x2) ^ (Double.doubleToLongBits(this.x2) >>> 32));
-        hash = 71 * hash + this.id;
+        int hash = 7;
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.x0) ^ (Double.doubleToLongBits(this.x0) >>> 32));
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.x1) ^ (Double.doubleToLongBits(this.x1) >>> 32));
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.x2) ^ (Double.doubleToLongBits(this.x2) >>> 32));
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.punto_max_value) ^ (Double.doubleToLongBits(this.punto_max_value) >>> 32));
+        hash = 29 * hash + this.id;
         return hash;
     }
 
@@ -101,10 +102,16 @@ public class Triangulo {
         if (Double.doubleToLongBits(this.x2) != Double.doubleToLongBits(other.x2)) {
             return false;
         }
-        return this.id == other.id;
+        if (Double.doubleToLongBits(this.punto_max_value) != Double.doubleToLongBits(other.punto_max_value)) {
+            return false;
+        }
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 
-    void calcularPuntoMaxValue() {
+    public void calcularPuntoMaxValue() {
         punto_max_value = x1;
     }
     

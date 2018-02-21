@@ -45,7 +45,12 @@ public class Params {
     /**
      * Ruta del fichero resumen con la base de datos inicial.
      */
-    public static final String PWM_PATH = "src/Files/ELE1.pwm";
+    public static String PWM_PATH = "src/Files/ELE1.pwm";
+    
+    /**
+     * Ruta del fichero resumen con la base de datos tras el tuning.
+     */
+    public static String PWM_TUNING_PATH = "src/Files/BaseDatos.pwm";
     
     /**
      * Ruta del fichero de reglas.
@@ -56,6 +61,11 @@ public class Params {
      * Ruta del fichero que contiene la salida del entrenamiento.
      */
     public static final String OUTPUT_TRA_PATH = "src/Files/Output_tra.txt";
+    
+    /**
+     * Ruta del fichero que contiene la salida del test.
+     */
+    public static final String OUTPUT_TST_PATH = "src/Files/Output_tst.txt";
     
     /**
      * Ruta del fichero que contiene la salida para una entrada dada.

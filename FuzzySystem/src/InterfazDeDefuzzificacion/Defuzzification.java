@@ -6,7 +6,6 @@
 package InterfazDeDefuzzificacion;
 
 import SistemaDeInferencia.InferenceSystem;
-import fuzzysystem.Params;
 
 /**
  * Convierte la salida del sistema de inferencia en un único valor real.

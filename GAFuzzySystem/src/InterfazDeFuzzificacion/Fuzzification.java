@@ -33,7 +33,7 @@ public class Fuzzification {
     }
     
     /**
-     * Fuzzifica las entradas 
+     * Fuzzifica las entradas. 
      */
     public void fuzzificar(){
 

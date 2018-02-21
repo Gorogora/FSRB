@@ -75,9 +75,6 @@ public abstract class ReadExamples {
         } 
     }
     
-    /**
-     * Lee el fichero fileName.
-     */
     public abstract void read();
     
     /**
@@ -119,9 +116,6 @@ public abstract class ReadExamples {
         return (sum/exampleNumber);
     }
     
-    /**
-     * Escribe en un fichero la salida de ejecutar el sistema fuzzy para un archivo .tra.
-     */
     public void writeOutputs(){
         try {
             double ecm = getECM();

@@ -120,12 +120,13 @@ public abstract class ReadExamples {
     }
     
     /**
-     * Escribe en un fichero la salida de ejecutar el sistema fuzzy para un archivo .tra.
+     * Escribe en un fichero la salida de ejecutar el sistema fuzzy para un archivo .tra o .tst.
+     * @param fileName Nombre del fichero donde se quiere escribir la salida.
      */
-    public void writeOutputs(){
+    public void writeOutputs(String fileName){
         try {
             double ecm = getECM();
-            FileWriter fichero = new FileWriter(new File(Params.OUTPUT_TRA_PATH));
+            FileWriter fichero = new FileWriter(new File(fileName));
             
             // escribir número de ejemplos
             fichero.write(exampleNumber + "\n");

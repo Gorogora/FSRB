@@ -15,6 +15,7 @@ import Tuning.CHC;
 import java.io.FileNotFoundException;
 import read.ReadPWM;
 import read.ReadRB;
+import read.ReadTest;
 import read.ReadTraining;
 
 /**
@@ -29,81 +30,49 @@ public class GAFuzzySystem {
      */
     public static void main(String[] args) throws FileNotFoundException {
         int numArgs = args.length;
+        /**
+         * args[0]: "-tra" 
+         * args[1]: "src/Files/ELE1.tra" o "src/Files/ELE1.tst"
+         * args[2]: "src/Files/BaseDatos.pwm"
+         */
         
         // cargar la base de datos
         DataBase db = new DataBase();
         ReadPWM rpwm = new ReadPWM(db);
-        rpwm.read(Params.PWM_PATH);
+        rpwm.read(args[2]);
         System.out.println(db.getBaseDatos().size());
         
         // cargar la base de reglas
         RuleBase rb = new RuleBase();        
         ReadRB rrb = new ReadRB(db, rb);
-        rrb.read(args[0]);
+        rrb.read(Params.RULES_PATH);
         System.out.println(rb.getBaseReglas().size());
         
         // crear la base de conocimiento
         KnowledgeBase kb = new KnowledgeBase(rb, db); 
         
-        
-        switch (numArgs) {
-            case 1: 
-                /*ReadTraining rt2 = new ReadTraining(db, rb, args[1]);
-                rt2.read();
-                CHC genetico = new CHC(rt2);
-                genetico.chc();*/
-                break;
-            case 2:
+        switch(args[0]){
+            case "-tra":
                 /**
-                * args[0]: ruta fichero de reglas = "src/Files/ELE1.wm"
-                * args[1]: ruta fichero entrenamiento = "src/Files/ELE1.tra"
-                */
-                /*ReadTraining rt = new ReadTraining(db, rb, args[1]);
+                 * args[1]: ruta fichero de reglas
+                 */
+                ReadTraining rt = new ReadTraining(db, rb, args[1]);
                 rt.read();
-                
-                System.out.println(rt.getECM());*/
-                
-                ReadTraining rt2 = new ReadTraining(db, rb, args[1]);
-                rt2.read();
-                CHC genetico = new CHC(rt2);
+                CHC genetico = new CHC(rt);
                 genetico.chc();
-                
-                break;
-            case 3:
-                /**
-                * args[0]: ruta fichero de reglas = "src/Files/ELE1.wm"
-                * args[1]: primera variable de entrada
-                * args[i]: i-ésima variable de entrada
-                */
-                
-
-                String[] args2 = new String[args.length-1];
-                for(int i=0; i<args.length; i++){
-                    args2[i] = args[i+1];
-                }
-        
-                /*String[] args2 = new String[2];
-                args2[0] = "10.000000";
-                args2[1] = "648.330017";*/
-
-
-                Fuzzification fuzzy = new Fuzzification(db, args2);
-                fuzzy.fuzzificar();
-
-
-                InferenceSystem is = new InferenceSystem(fuzzy, db, rb);
-                is.inferir();
-        
-                Defuzzification defuzzy = new Defuzzification(is);
-                defuzzy.defuzzificar();
-
-                System.out.println("Salida: " + defuzzy.getSalida());
+                db.write();
                 break;
                 
-            
-            default:
-                throw new AssertionError();
-        }
+            case "-tst":                         
+                ReadTest rtst = new ReadTest(db, rb, args[1]);
+                rtst.read();
+                
+                rtst.writeOutputs(Params.OUTPUT_TST_PATH);
+                System.out.println("Salida guardada en: " + Params.OUTPUT_TST_PATH);
+                
+                break;
+        }    
+        
     }
     
 }
