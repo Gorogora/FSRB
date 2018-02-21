@@ -1,0 +1,40 @@
+Parametros de Entrada aceptados :
+
+Fichero con datos de entrenamiento = d1-1.tra 
+Fichero con datos de prueba = d1-1.tst 
+Variable de estado = 1. Numero de etiquetas = 7.
+Universo de discurso = [1.000000.320.000000]
+Variable de estado = 2. Numero de etiquetas = 7.
+Universo de discurso = [60.000000.1673.000000]
+Variable de control = 1. Numero de etiquetas = 7.
+Universo de discurso = [80.000000.7675.000000]
+
+
+Base de Datos inicial: 
+
+  Variable 1:
+    Etiqueta 1: (-52.166668,1.000000,54.166668)
+    Etiqueta 2: (1.000000,54.166668,107.333336)
+    Etiqueta 3: (54.166668,107.333336,160.500000)
+    Etiqueta 4: (107.333336,160.500000,213.666672)
+    Etiqueta 5: (160.500000,213.666672,266.833344)
+    Etiqueta 6: (213.666672,266.833344,320.000000)
+    Etiqueta 7: (266.833344,320.000000,373.166687)
+
+  Variable 2:
+    Etiqueta 1: (-208.833344,60.000000,328.833344)
+    Etiqueta 2: (60.000000,328.833344,597.666687)
+    Etiqueta 3: (328.833344,597.666687,866.500000)
+    Etiqueta 4: (597.666687,866.500000,1135.333374)
+    Etiqueta 5: (866.500000,1135.333374,1404.166748)
+    Etiqueta 6: (1135.333374,1404.166748,1673.000000)
+    Etiqueta 7: (1404.166748,1673.000000,1941.833374)
+
+  Variable 3:
+    Etiqueta 1: (-1185.833374,80.000000,1345.833374)
+    Etiqueta 2: (80.000000,1345.833374,2611.666748)
+    Etiqueta 3: (1345.833374,2611.666748,3877.500000)
+    Etiqueta 4: (2611.666748,3877.500000,5143.333496)
+    Etiqueta 5: (3877.500000,5143.333496,6409.166992)
+    Etiqueta 6: (5143.333496,6409.166992,7675.000000)
+    Etiqueta 7: (6409.166992,7675.000000,8940.833984)

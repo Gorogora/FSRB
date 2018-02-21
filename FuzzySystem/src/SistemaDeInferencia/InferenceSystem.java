@@ -9,7 +9,7 @@ import BaseDeDatos.DataBase;
 import BaseDeDatos.Triangulo;
 import BaseDeReglas.RuleBase;
 import InterfazDeFuzzificacion.Fuzzification;
-import gafuzzysystem.Params;
+import fuzzysystem.Params;
 import java.util.ArrayList;
 
 /**

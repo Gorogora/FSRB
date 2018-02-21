@@ -8,7 +8,7 @@ package read;
 import BaseDeDatos.DataBase;
 import BaseDeDatos.Triangulo;
 import BaseDeReglas.RuleBase;
-import gafuzzysystem.Params;
+import fuzzysystem.Params;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

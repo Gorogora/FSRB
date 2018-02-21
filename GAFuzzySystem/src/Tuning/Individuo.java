@@ -7,15 +7,10 @@ package Tuning;
 
 import gafuzzysystem.Params;
 import BaseDeDatos.DataBase;
-import BaseDeReglas.RuleBase;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import read.ReadPWM;
-import read.ReadRB;
-import read.ReadTest;
 import read.ReadPWM;
 import read.ReadTraining;
 

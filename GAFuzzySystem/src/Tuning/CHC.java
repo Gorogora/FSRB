@@ -67,7 +67,7 @@ public class CHC {
             System.out.println("Población desordenada");
             
             // recombinar estructuras en C(t) formando C'(t) y evaluar a los nuevos individuos
-            blx_cross(current_population);
+            blx_cross(current_population);    // C'(t)
             
             /* seleccionar los individuos que formarán la nueva población P(t) 
             a partir de C'(t) y P(t-1)*/
@@ -80,9 +80,9 @@ public class CHC {
             if(elite.equals(population)){    // si(P(t) equals P(t-1))
                 umbral_cruce--; 
                 System.out.println("Disminuir umbral de cruce");
+                population = elite; // P(t)
             }            
-            population.clear();
-            population = new ArrayList<>(elite);    // P(t)
+
             if(umbral_cruce < 0){
                 diverge(elite.get(0));
                 umbral_cruce = L/4;
@@ -101,14 +101,15 @@ public class CHC {
      */
     private void inicializar() {
         System.out.println("Inicializando población");
-        int contador = 1;
+        //int contador = 1;
+        int contador = 0;
         Individuo ind;
-        
+         
         /* El primer individuo de la población contendrá la solución actual (no 
         modificar las etiquetas) y, por tanto, sus genes estarán todos a cero */
-        ind = new Individuo(rt);
+        /*ind = new Individuo(rt);
         ind.evaluar();
-        population.add(ind);
+        population.add(ind);*/
         
         while(contador < POPULATION_SIZE) {
             ind = new Individuo(rt);
@@ -138,7 +139,7 @@ public class CHC {
             Individuo madre = current_population.get(2*i);
             Individuo padre = current_population.get(2*i+1);
             
-            if(HammingDistance(padre, madre)/2.0 > umbral_cruce){
+            if(((HammingDistance(padre, madre)/2.0)) > umbral_cruce){
                 Individuo hijo1 = new Individuo(rt);
                 Individuo hijo2 = new Individuo(rt);
 

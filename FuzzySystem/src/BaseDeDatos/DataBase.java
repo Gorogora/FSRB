@@ -5,7 +5,6 @@
  */
 package BaseDeDatos;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
@@ -29,19 +28,6 @@ public class DataBase implements Cloneable{
 
     public void setBaseDatos(Hashtable<Integer, Triangulo> baseDatos) {
         this.baseDatos = baseDatos;
-    }
-    
-    public void tuningDataBase(double[] cromosoma){
-        
-        for(int i=1; i<=baseDatos.size(); i++){
-            Triangulo t = baseDatos.get(i);   //recuperar el triángulo asociado a la clave
-            // desplazamos el triángulo
-            t.setX0(t.getX0() + cromosoma[i-1]);
-            t.setX1(t.getX1() + cromosoma[i-1]);
-            t.setX2(t.getX2() + cromosoma[i-1]);
-            t.calcularPuntoMaxValue();
-            baseDatos.put(i, t);            
-        }
     }
 
     @Override

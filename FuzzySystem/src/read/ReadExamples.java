@@ -10,7 +10,7 @@ import BaseDeReglas.RuleBase;
 import InterfazDeDefuzzificacion.Defuzzification;
 import InterfazDeFuzzificacion.Fuzzification;
 import SistemaDeInferencia.InferenceSystem;
-import gafuzzysystem.Params;
+import fuzzysystem.Params;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
