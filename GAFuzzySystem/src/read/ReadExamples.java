@@ -146,7 +146,7 @@ public abstract class ReadExamples {
             }
             
             // escribir el ECM
-            fichero.write("ECMtra: " + ecm);
+            fichero.write("ECM: " + ecm);
             
             fichero.close();
             
