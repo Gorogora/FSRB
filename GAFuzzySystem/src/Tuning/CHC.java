@@ -18,7 +18,7 @@ import read.ReadTraining;
  */
 public class CHC {
     
-    private final int STOP = 100;
+    private final int STOP = 5000;
     private final int POPULATION_SIZE = 50;
     private final double MAX_TUNING = 0.5;
     private final double MIN_TUNING = -0.5;
@@ -47,11 +47,13 @@ public class CHC {
         inicializar();
         
         // mientras no se cumpla la condición de parada
-        while(population.get(0).getEv() >= Params.ECMtra){    //iterations < STOP
+        while(iterations < STOP){    // population.get(0).getEv() >= Params.ECMtra
             // t++
-            // copiar los miembros de P(t-1) en C(t) en un orden random
+            // copiar los miembros de P(t-1) en C(t) en un orden random            
             System.out.println("Desordenar población");
-            ArrayList<Individuo> current_population = new ArrayList<>(POPULATION_SIZE);
+            Collections.shuffle(population, rnd);
+            ArrayList<Individuo> current_population = (ArrayList<Individuo>) population.clone();
+            /*ArrayList<Individuo> current_population = new ArrayList<>(POPULATION_SIZE);
             ArrayList<Integer> aleatorios = new ArrayList<>();
             for (int i = 0; i < POPULATION_SIZE; i++) {
                 int random = rnd.nextInt(POPULATION_SIZE);
@@ -63,7 +65,7 @@ public class CHC {
                 }
                 aleatorios.add(random);
                 current_population.add(aux);    // C(t)
-            } 
+            } */
             System.out.println("Población desordenada");
             
             // recombinar estructuras en C(t) formando C'(t) y evaluar a los nuevos individuos

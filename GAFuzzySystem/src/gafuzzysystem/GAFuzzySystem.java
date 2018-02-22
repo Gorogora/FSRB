@@ -54,7 +54,7 @@ public class GAFuzzySystem {
         switch(args[0]){
             case "-tra":
                 /**
-                 * args[1]: ruta fichero de reglas
+                 * args[1]: ruta fichero de entrenamiento
                  */
                 ReadTraining rt = new ReadTraining(db, rb, args[1]);
                 rt.read();
@@ -63,7 +63,7 @@ public class GAFuzzySystem {
                 db.write();
                 break;
                 
-            case "-tst":                         
+            case "-tst":  
                 ReadTest rtst = new ReadTest(db, rb, args[1]);
                 rtst.read();
                 

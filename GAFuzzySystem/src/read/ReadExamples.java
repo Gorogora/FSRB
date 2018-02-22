@@ -116,7 +116,11 @@ public abstract class ReadExamples {
             sum += (outputs[i] - trueOutputs[i]) * (outputs[i] - trueOutputs[i]);
         }
 
-        return (sum/exampleNumber);
+        double op1 = (double)1/(2 * exampleNumber);
+        double op2 = sum;
+        double result = op1 * op2;
+        
+        return result;
     }
     
     /**

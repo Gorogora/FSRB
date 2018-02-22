@@ -33,9 +33,9 @@ public class Individuo implements Comparable<Individuo>{
     private double ev;
     
     /**
-     * Base de datos original. 
+     * Base de datos. 
      */
-    private DataBase db_original;   //sobre esta base de datos se puede trabajar sin importar si se modifica
+    private DataBase db;   //sobre esta base de datos se puede trabajar sin importar si se modifica
     
     private ReadTraining rt;
     
@@ -43,11 +43,12 @@ public class Individuo implements Comparable<Individuo>{
     
     public Individuo(ReadTraining rt){
         cromosoma = new double[GENES];
-        try {
+        /*try {
             db_original = (DataBase) rt.getDb().clone();
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Individuo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        db = new DataBase();
         
         this.rt = rt;
     }
@@ -73,11 +74,18 @@ public class Individuo implements Comparable<Individuo>{
      */
     public void evaluar(){
         try {
-            DataBase db_copia = (DataBase) db_original.clone();
+            /*DataBase db_copia = (DataBase) db_original.clone();
             db_copia.tuningDataBase(cromosoma);   
             rt.setDb(db_copia);
             ev = rt.getECM();
-            rt.setDb(db_original);
+            rt.setDb(db_original);*/
+            DataBase db_original = (DataBase) rt.getDb().clone();
+            DataBase db_copia = (DataBase) rt.getDb().clone();
+            db_copia.tuningDataBase(cromosoma);   
+            rt.setDb(db_copia);
+            ev = rt.getECM();   //lo evalua con la base de datos tuneada
+            rt.setDb(db_original);  //vuelvo a dejarle su base de datos original para no modificar el objeto
+            db = (DataBase) db_copia.clone();   //la base de datos del individuo es la base de datos tuneada
         } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Individuo.class.getName()).log(Level.SEVERE, null, ex);
         }

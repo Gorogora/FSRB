@@ -9,7 +9,11 @@ import gafuzzysystem.Params;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -71,12 +75,12 @@ public class DataBase implements Cloneable{
             fichero.write("Base de Datos inicial: \n");
             fichero.write("\n");
             int it=1;
-            while(it<=Params.INPUTS+1){
+            while(it <= Params.INPUTS+1){
                 fichero.write("  Variable " + it + ":\n");
                 int etiqueta = 1;
                 for(Triangulo t : baseDatos.values()){
                     if(t.getId() == it){
-                        fichero.write("    Etiqueta " + etiqueta + ": (" + t.getX0() + "," + t.getX1() + "," + t.getX2() + ")");
+                        fichero.write("    Etiqueta " + etiqueta + ": (" + t.getX0() + "," + t.getX1() + "," + t.getX2() + ")\n");
                         etiqueta++;
                     }
                 }

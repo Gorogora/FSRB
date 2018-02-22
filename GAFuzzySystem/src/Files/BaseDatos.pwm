@@ -1,0 +1,41 @@
+Parametros de Entrada aceptados :
+
+Fichero con datos de entrenamiento = ELE1.tra 
+Fichero con datos de prueba = ELE1.tst 
+Variable de estado = 1. Numero de etiquetas = 7.
+Universo de discurso = [1.000000.320.000000]
+Variable de estado = 2. Numero de etiquetas = 7.
+Universo de discurso = [60.000000.1673.000000]
+Variable de control = 1. Numero de etiquetas = 7.
+Universo de discurso = [80.000000.7675.000000]
+
+
+Base de Datos inicial: 
+
+  Variable 1:
+    Etiqueta 1: (266.833344,320.0,373.166687)
+    Etiqueta 2: (213.666672,266.833344,320.0)
+    Etiqueta 3: (160.5,213.666672,266.833344)
+    Etiqueta 4: (107.333336,160.5,213.666672)
+    Etiqueta 5: (54.166668,107.333336,160.5)
+    Etiqueta 6: (1.0,54.166668,107.333336)
+    Etiqueta 7: (-52.166668,1.0,54.166668)
+
+  Variable 2:
+    Etiqueta 1: (1404.166748,1673.0,1941.833374)
+    Etiqueta 2: (1135.333374,1404.166748,1673.0)
+    Etiqueta 3: (866.5,1135.333374,1404.166748)
+    Etiqueta 4: (597.666687,866.5,1135.333374)
+    Etiqueta 5: (328.833344,597.666687,866.5)
+    Etiqueta 6: (60.0,328.833344,597.666687)
+    Etiqueta 7: (-208.833344,60.0,328.833344)
+
+  Variable 3:
+    Etiqueta 1: (6409.166992,7675.0,8940.833984)
+    Etiqueta 2: (5143.333496,6409.166992,7675.0)
+    Etiqueta 3: (3877.5,5143.333496,6409.166992)
+    Etiqueta 4: (2611.666748,3877.5,5143.333496)
+    Etiqueta 5: (1345.833374,2611.666748,3877.5)
+    Etiqueta 6: (80.0,1345.833374,2611.666748)
+    Etiqueta 7: (-1185.833374,80.0,1345.833374)
+

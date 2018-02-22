@@ -8,7 +8,6 @@ package read;
 import BaseDeDatos.DataBase;
 import BaseDeReglas.RuleBase;
 import java.io.IOException;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

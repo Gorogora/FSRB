@@ -112,8 +112,13 @@ public abstract class ReadExamples {
         for(int i=0; i<exampleNumber; i++){
             sum += (outputs[i] - trueOutputs[i]) * (outputs[i] - trueOutputs[i]);
         }
-
-        return (sum/exampleNumber);
+        
+        //cálculo del error cuadrático medio
+        double op1 = (double)1/(2 * exampleNumber);
+        double op2 = sum;
+        double result = op1 * op2;
+        
+        return result;
     }
     
     public void writeOutputs(){
