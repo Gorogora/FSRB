@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  * Define los conjuntos difusos.
  * @author ana
  */
-public class DataBase implements Cloneable{
+public class DataBase{
     
     /**
      * Almacena las etiquetas lingüísticas de cada una de las variables de entrada.
@@ -30,6 +31,13 @@ public class DataBase implements Cloneable{
     
     public DataBase(){
         baseDatos = new Hashtable<>();
+    }
+    
+    public DataBase(DataBase _db){
+        baseDatos = new Hashtable<>();
+        for(int i=1; i<=_db.getBaseDatos().size(); i++){
+            baseDatos.put(i, new Triangulo(_db.getBaseDatos().get(i)));
+        }        
     }
 
     public Hashtable<Integer, Triangulo> getBaseDatos() {
@@ -48,8 +56,7 @@ public class DataBase implements Cloneable{
             t.setX0(t.getX0() + cromosoma[i-1]);
             t.setX1(t.getX1() + cromosoma[i-1]);
             t.setX2(t.getX2() + cromosoma[i-1]);
-            t.calcularPuntoMaxValue();
-            baseDatos.put(i, t);  
+            t.calcularPuntoMaxValue(); 
         }
     }
     
@@ -93,17 +100,6 @@ public class DataBase implements Cloneable{
             Logger.getLogger(DataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
-    
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        Object clone = null;
-        clone = super.clone();        
-        ((DataBase)clone).setBaseDatos((Hashtable)baseDatos.clone());
-        return clone;
-    }
-    
-    
+    }   
     
 }

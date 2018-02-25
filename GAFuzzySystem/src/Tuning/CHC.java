@@ -18,7 +18,7 @@ import read.ReadTraining;
  */
 public class CHC {
     
-    private final int STOP = 5000;
+    private final int STOP = 100;
     private final int POPULATION_SIZE = 50;
     private final double MAX_TUNING = 0.5;
     private final double MIN_TUNING = -0.5;
@@ -35,7 +35,7 @@ public class CHC {
     
     public CHC(ReadTraining rt){
         population = new ArrayList<>(POPULATION_SIZE);
-        rnd = new Random(123456789);
+        rnd = new Random(1000000);
         this.rt = rt;        
         umbral_cruce = L/4;
     }
@@ -47,25 +47,12 @@ public class CHC {
         inicializar();
         
         // mientras no se cumpla la condición de parada
-        while(iterations < STOP){    // population.get(0).getEv() >= Params.ECMtra
+        while(iterations < STOP){    //iterations < STOP
             // t++
             // copiar los miembros de P(t-1) en C(t) en un orden random            
             System.out.println("Desordenar población");
             Collections.shuffle(population, rnd);
             ArrayList<Individuo> current_population = (ArrayList<Individuo>) population.clone();
-            /*ArrayList<Individuo> current_population = new ArrayList<>(POPULATION_SIZE);
-            ArrayList<Integer> aleatorios = new ArrayList<>();
-            for (int i = 0; i < POPULATION_SIZE; i++) {
-                int random = rnd.nextInt(POPULATION_SIZE);
-                Individuo aux = population.get(random);
-                
-                while(aleatorios.contains(random)){
-                    random = rnd.nextInt(POPULATION_SIZE);
-                    aux = population.get(random);
-                }
-                aleatorios.add(random);
-                current_population.add(aux);    // C(t)
-            } */
             System.out.println("Población desordenada");
             
             // recombinar estructuras en C(t) formando C'(t) y evaluar a los nuevos individuos
@@ -74,16 +61,15 @@ public class CHC {
             /* seleccionar los individuos que formarán la nueva población P(t) 
             a partir de C'(t) y P(t-1)*/
             Collections.sort(current_population, Collections.reverseOrder());   // ordena la población en orden ascendente en función de ev, es decir, el individuio con ev=1 estará antes que el que tenga ev=2
-            //ArrayList<Individuo> elite = (ArrayList<Individuo>) current_population.subList(0, POPULATION_SIZE); // cogemos a la élite de la población
-            ArrayList<Individuo> elite = new ArrayList<>(current_population.subList(0, POPULATION_SIZE));
+            ArrayList<Individuo> elite = new ArrayList<>(current_population.subList(0, POPULATION_SIZE));   //P(t)
             
             // multiarranque
             Collections.sort(population, Collections.reverseOrder());   //ordenamos a la población para poder compararlas
             if(elite.equals(population)){    // si(P(t) equals P(t-1))
                 umbral_cruce--; 
                 System.out.println("Disminuir umbral de cruce");
-                population = elite; // P(t)
-            }            
+            }
+            population = (ArrayList<Individuo>) elite.clone(); // P(t)
 
             if(umbral_cruce < 0){
                 diverge(elite.get(0));
@@ -91,7 +77,7 @@ public class CHC {
             }  
             
             Collections.sort(population, Collections.reverseOrder());
-            System.out.println("Iteración: " + iterations + " --> " + population.get(0).getEv());
+            System.out.println("Iteración: " + iterations + " --> " + population.get(0).getEv() + " " + population.get(POPULATION_SIZE-1).getEv());
             iterations++;
         }
     }
@@ -103,15 +89,14 @@ public class CHC {
      */
     private void inicializar() {
         System.out.println("Inicializando población");
-        //int contador = 1;
-        int contador = 0;
+        int contador = 1;
         Individuo ind;
          
         /* El primer individuo de la población contendrá la solución actual (no 
         modificar las etiquetas) y, por tanto, sus genes estarán todos a cero */
-        /*ind = new Individuo(rt);
+        ind = new Individuo(rt);
         ind.evaluar();
-        population.add(ind);*/
+        population.add(ind);
         
         while(contador < POPULATION_SIZE) {
             ind = new Individuo(rt);
@@ -141,7 +126,7 @@ public class CHC {
             Individuo madre = current_population.get(2*i);
             Individuo padre = current_population.get(2*i+1);
             
-            if(((HammingDistance(padre, madre)/2.0)) > umbral_cruce){
+            if((HammingDistance(padre, madre)/2) > umbral_cruce){
                 Individuo hijo1 = new Individuo(rt);
                 Individuo hijo2 = new Individuo(rt);
 

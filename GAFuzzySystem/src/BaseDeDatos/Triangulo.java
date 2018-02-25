@@ -29,6 +29,14 @@ public class Triangulo {
         punto_max_value = x1;
         this.id = id;
     }
+    
+    public Triangulo(Triangulo t){
+        this.x0 = t.getX0();
+        this.x1 = t.getX1();
+        this.x2 = t.getX2();
+        this.punto_max_value = t.getPunto_max_value();
+        this.id = t.getId();
+    }
 
     public double getX0() {
         return x0;
@@ -114,6 +122,5 @@ public class Triangulo {
     public void calcularPuntoMaxValue() {
         punto_max_value = x1;
     }
-    
     
 }

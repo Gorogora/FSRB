@@ -32,6 +32,7 @@ public abstract class ReadExamples {
      * Almacena las salidas tras la ejecución del controlador difuso.
      */
     protected double[] outputs;
+    
     /**
      * Almacena las salidas que se deberían obtener de la ejecución del controlador.
      */
@@ -116,7 +117,7 @@ public abstract class ReadExamples {
             sum += (outputs[i] - trueOutputs[i]) * (outputs[i] - trueOutputs[i]);
         }
 
-        double op1 = (double)1/(2 * exampleNumber);
+        double op1 = (double)1.0/(2.0 * exampleNumber);
         double op2 = sum;
         double result = op1 * op2;
         

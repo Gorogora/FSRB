@@ -7,11 +7,14 @@ package Tuning;
 
 import gafuzzysystem.Params;
 import BaseDeDatos.DataBase;
+import BaseDeReglas.RuleBase;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import read.ReadPWM;
+import read.ReadRB;
 import read.ReadTraining;
 
 /**
@@ -32,24 +35,12 @@ public class Individuo implements Comparable<Individuo>{
      */
     private double ev;
     
-    /**
-     * Base de datos. 
-     */
-    private DataBase db;   //sobre esta base de datos se puede trabajar sin importar si se modifica
-    
     private ReadTraining rt;
     
     public final int GENES = Params.NUM_ETQ;
     
     public Individuo(ReadTraining rt){
-        cromosoma = new double[GENES];
-        /*try {
-            db_original = (DataBase) rt.getDb().clone();
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Individuo.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        db = new DataBase();
-        
+        cromosoma = new double[GENES];      
         this.rt = rt;
     }
 
@@ -61,7 +52,7 @@ public class Individuo implements Comparable<Individuo>{
         this.cromosoma = solucion;
     }
 
-        public double getEv() {
+    public double getEv() {
         return ev;
     }
 
@@ -70,25 +61,16 @@ public class Individuo implements Comparable<Individuo>{
     }
     
     /**
-     * Evalua el cromosoma mediante el ECM 
+     * Evalua el cromosoma mediante el ECM. 
      */
     public void evaluar(){
-        try {
-            /*DataBase db_copia = (DataBase) db_original.clone();
-            db_copia.tuningDataBase(cromosoma);   
-            rt.setDb(db_copia);
-            ev = rt.getECM();
-            rt.setDb(db_original);*/
-            DataBase db_original = (DataBase) rt.getDb().clone();
-            DataBase db_copia = (DataBase) rt.getDb().clone();
-            db_copia.tuningDataBase(cromosoma);   
-            rt.setDb(db_copia);
-            ev = rt.getECM();   //lo evalua con la base de datos tuneada
-            rt.setDb(db_original);  //vuelvo a dejarle su base de datos original para no modificar el objeto
-            db = (DataBase) db_copia.clone();   //la base de datos del individuo es la base de datos tuneada
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(Individuo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DataBase db_original = new DataBase(rt.getDb());
+        DataBase db_copia = new DataBase(rt.getDb());
+        db_copia.tuningDataBase(cromosoma);  
+        rt.setDb(db_copia);
+        ev = rt.getECM();   //lo evalua con la base de datos tuneada
+        rt.setDb(db_original);  //vuelvo a dejarle su base de datos original para no modificar el objeto         
+        
     }
 
     
@@ -135,50 +117,5 @@ public class Individuo implements Comparable<Individuo>{
             return false;
         }
         return true;
-    }
-    
-    public static void main(String[] args) throws FileNotFoundException {
-        /*DataBase db = new DataBase();
-        RuleBase rb = new RuleBase();
-
-        ReadRB rrb = new ReadRB(db, rb);
-        rrb.read("src/Files/ELE1.wm");
-        System.out.println(db.getBaseDatos().size());
-        ReadTraining rt = new ReadTraining(db, rb, "src/Files/ELE1.tra");
-        rt.read();
-        System.out.println(rt.getECM());
-        
-        ReadTest rtst = new ReadTest(db, rb, "src/Files/ELE1.tst");
-        rtst.read();
-        System.out.println(rtst.getECM());
-        
-        ArrayList<Individuo> population = new ArrayList<>();
-        
-        Individuo i1 = new Individuo(rt);
-        Individuo i2 = new Individuo(rt);
-        
-        System.out.println(i1.equals(i2));
-        
-        population.add(i1);
-        System.out.println(population.contains(i2));
-        
-        i1.evaluar();
-        i2.evaluar();
-        System.out.println(i1.equals(i2));
-        
-        i1.getCromosoma()[0] = 0.4;
-        i1.evaluar();
-        System.out.println(i1.equals(i2));
-        
-        i2.getCromosoma()[0] = 0.4;
-        i2.evaluar();
-        System.out.println(i1.equals(i2));
-        */
-        
-        DataBase db = new DataBase();
-        ReadPWM rpwm = new ReadPWM(db);
-        rpwm.read("src/Files/ELE1.pwm");
-        System.out.println(db.getBaseDatos().size());
-        
-    }
+    }   
 }

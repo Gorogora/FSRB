@@ -57,6 +57,8 @@ public class Params {
      */
     public static String PWM_TUNING_PATH = "src/Files/BaseDatos.pwm";
     
+    public static String WM_TUNING_PATH = "src/Files/BaseReglas.wm";
+    
     /**
      * Ruta del fichero de reglas.
      */

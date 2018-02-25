@@ -26,11 +26,11 @@ public class GAFuzzySystem {
      * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
-        int numArgs = args.length;
         /**
          * args[0]: "-tra" 
          * args[1]: "src/Files/ELE1.tra" o "src/Files/ELE1.tst"
          * args[2]: "src/Files/BaseDatos.pwm"
+         * args[3]: "src/Files/BaseReglas.wm"
          */
         
         // cargar la base de datos
@@ -42,7 +42,7 @@ public class GAFuzzySystem {
         // cargar la base de reglas
         RuleBase rb = new RuleBase();        
         ReadRB rrb = new ReadRB(db, rb);
-        rrb.read(Params.RULES_PATH);
+        rrb.read(args[3]);
         System.out.println(rb.getBaseReglas().size());
         
         // crear la base de conocimiento
@@ -57,7 +57,10 @@ public class GAFuzzySystem {
                 rt.read();
                 CHC genetico = new CHC(rt);
                 genetico.chc();
+                rt.writeOutputs(Params.OUTPUT_TRA_PATH);
+                db.tuningDataBase(genetico.getPopulation().get(0).getCromosoma());
                 db.write();
+                rb.write(db);
                 break;
                 
             case "-tst":  
@@ -68,8 +71,7 @@ public class GAFuzzySystem {
                 System.out.println("Salida guardada en: " + Params.OUTPUT_TST_PATH);
                 
                 break;
-        }    
-        
+        } 
     }
     
 }
