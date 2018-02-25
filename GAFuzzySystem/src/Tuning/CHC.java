@@ -155,11 +155,18 @@ public class CHC {
                                         
                     double min = cmin - I * ALPHA;
                     double max = cmax + I * ALPHA;
+ 
                     // double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
                     double genValue = min + (max - min) * rnd.nextDouble();
+                    while(genValue < -0.5 || genValue > 0.5){
+                        genValue = min + (max - min) * rnd.nextDouble();
+                    }                    
                     hijo1.getCromosoma()[j] = genValue;
                     hijo1.evaluar();
                     genValue = min + (max - min) * rnd.nextDouble();
+                    while(genValue < -0.5 || genValue > 0.5){
+                        genValue = min + (max - min) * rnd.nextDouble();
+                    }   
                     hijo2.getCromosoma()[j] = genValue;
                     hijo2.evaluar();  
                 }

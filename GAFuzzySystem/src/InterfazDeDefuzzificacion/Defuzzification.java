@@ -40,7 +40,7 @@ public class Defuzzification {
         }
         
         if(divisor==0){
-            salida = 0;
+            salida = Params.DEFAULT_OUTPUT;
         }
         else{
             salida = dividendo / divisor;

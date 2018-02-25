@@ -43,7 +43,6 @@ public class ReadRB {
             FileReader fr = new FileReader(fileName);
             BufferedReader bf = new BufferedReader(fr);
             String linea;
-            int key = 1;
             ArrayList<int[]> baseReglas = new ArrayList<>();
             
             /**
@@ -66,7 +65,6 @@ public class ReadRB {
             while(it < R){   
                 int j = 1;  //id del antecendente o consecuente al que pertenece
                 int[] keys = new int[Params.INPUTS + Params.OUTPUTS];
-                Triangulo[] triangulos = new Triangulo[Params.INPUTS + Params.OUTPUTS];
                 while(!(linea = bf.readLine()).equals("")){
                     // guarda los apuntadores a las etiquetas que definen la regla                   
                     StringTokenizer st = new StringTokenizer(linea);
@@ -102,6 +100,7 @@ public class ReadRB {
                 String[] tokens = linea.split(":   ");    //dos puntos tres espacios
                 //coger el segundo token que es el que contiene el valor
                 salida_por_defecto = Double.parseDouble(tokens[1]);
+                Params.setDEFAULT_OUTPUT(salida_por_defecto);
             }
             
             // leer dos lineas en blanco de separación

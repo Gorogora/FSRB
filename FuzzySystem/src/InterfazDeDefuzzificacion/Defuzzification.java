@@ -6,6 +6,7 @@
 package InterfazDeDefuzzificacion;
 
 import SistemaDeInferencia.InferenceSystem;
+import fuzzysystem.Params;
 
 /**
  * Convierte la salida del sistema de inferencia en un único valor real.
@@ -39,8 +40,8 @@ public class Defuzzification {
             divisor += is.getMatching().get(i);
         }
         
-        if(divisor==0){
-            salida = 0;
+        if(divisor == 0){
+            salida = Params.DEFAULT_OUTPUT;
         }
         else{
             salida = dividendo / divisor;

@@ -20,7 +20,7 @@ public class Triangulo {
     /**
      * Identifica a qué antecedente o consecuente hace referencia la etiqueta
      */
-    private int id = 0;
+    private int id;
     
     public Triangulo(double x0, double x1, double x2, int id) {
         this.x0 = x0;

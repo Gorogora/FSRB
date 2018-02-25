@@ -102,6 +102,7 @@ public class ReadRB {
                 String[] tokens = linea.split(":   ");    //dos puntos tres espacios
                 //coger el segundo token que es el que contiene el valor
                 salida_por_defecto = Double.parseDouble(tokens[1]);
+		Params.setDEFAULT_OUTPUT(salida_por_defecto);
             }
             
             // leer dos lineas en blanco de separación

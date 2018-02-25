@@ -20,7 +20,9 @@ public class Params {
      */
     public static int INPUTS;
     
-    public static int OPERADOR_CONJUNCION = 2;  //producto escalar
+    public static int OPERADOR_CONJUNCION = 1;  //minimo
+    
+    public static int OPERADOR_IMPLICACION = 1; //minimo
     
     /**
      * Número de variables de salidas
@@ -41,6 +43,11 @@ public class Params {
      * Error cuadrático medio del fichero de test.
      */
     public static double ECMtst;
+    
+    /**
+     * Salida por defecto.
+     */
+    public static double DEFAULT_OUTPUT;
     
     /**
      * Ruta del fichero resumen con la base de datos inicial.
@@ -81,6 +88,10 @@ public class Params {
 
     public static void setECMtst(double ECMtst) {
         Params.ECMtst = ECMtst;
+    }
+
+    public static void setDEFAULT_OUTPUT(double DEFAULT_OUTPUT) {
+        Params.DEFAULT_OUTPUT = DEFAULT_OUTPUT;
     }
     
 }

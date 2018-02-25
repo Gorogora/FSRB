@@ -64,7 +64,7 @@ public class InferenceSystem {
             
                 /**
                  * Como sólo vamos a tener un consecuente guardamos directamente el 
-                 * punto medio del mismo
+                 * punto de máximo valor del mismo
                  */
                 Triangulo t = db.getBaseDatos().get(rule[rule.length-1]);
                 pmv.add(t.getPunto_max_value());   
