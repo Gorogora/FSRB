@@ -1,0 +1,12 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Creaci\IeC {\'o}n de un Software para el dise\IeC {\~n}o y lanzamiento de un Controlador Difuso de Tipo Mamdani}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Base de conocimiento}{3}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}Base de Datos}{3}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}Base de Reglas}{3}{subsubsection.1.1.2}
+\contentsline {subsection}{\numberline {1.2}Interfaz de fuzzificaci\IeC {\'o}n}{4}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Sistema de inferencia}{4}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Interfaz de defuzzificaci\IeC {\'o}n}{4}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Read}{5}{subsection.1.5}
+\contentsline {subsection}{\numberline {1.6}Files}{5}{subsection.1.6}
+\contentsline {subsection}{\numberline {1.7}FuzzySystem}{5}{subsection.1.7}
+\contentsline {section}{\numberline {2}Ejecuci\IeC {\'o}n del software}{6}{section.2}

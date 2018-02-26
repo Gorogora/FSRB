@@ -18,7 +18,7 @@ import read.ReadTraining;
  */
 public class CHC {
     
-    private final int STOP = 100;
+    private final int STOP = 200;
     private final int POPULATION_SIZE = 50;
     private final double MAX_TUNING = 0.5;
     private final double MIN_TUNING = -0.5;

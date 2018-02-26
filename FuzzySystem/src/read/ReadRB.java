@@ -19,8 +19,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Lee un fichero de extensión .wm  con la base de reglas y rellena con la 
- * información correspondiente tanto la base de reglas como la base de conocimiento.
+ * Lee un fichero de extensión .wm  con la base de reglas y guarda los datos 
+ * en la estructura correspondiente.
  * @author ana
  */
 public class ReadRB {

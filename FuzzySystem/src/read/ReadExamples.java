@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Lee un fichero de training o test.
  * @author ana
  */
 public abstract class ReadExamples {
