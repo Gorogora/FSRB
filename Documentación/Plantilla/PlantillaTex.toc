@@ -9,4 +9,14 @@
 \contentsline {subsection}{\numberline {1.5}Read}{5}{subsection.1.5}
 \contentsline {subsection}{\numberline {1.6}Files}{5}{subsection.1.6}
 \contentsline {subsection}{\numberline {1.7}FuzzySystem}{5}{subsection.1.7}
-\contentsline {section}{\numberline {2}Ejecuci\IeC {\'o}n del software}{6}{section.2}
+\contentsline {subsection}{\numberline {1.8}Ejecuci\IeC {\'o}n del software}{6}{subsection.1.8}
+\contentsline {section}{\numberline {2}Ampliaci\IeC {\'o}n del Software para realizar un aprendizaje de etiquetas linguisticas (tuning)}{6}{section.2}
+\contentsline {subsection}{\numberline {2.1}Construcci\IeC {\'o}n del algoritmo CHC}{7}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Dise\IeC {\~n}ar una representaci\IeC {\'o}n}{7}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Decidir como iniciar (reiniciar) una poblaci\IeC {\'o}n}{7}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Dise\IeC {\~n}ar una forma de evaluar a un individuo}{8}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}Dise\IeC {\~n}ar un operador de cruce adecuado}{8}{subsubsection.2.1.4}
+\contentsline {subsubsection}{\numberline {2.1.5}Decidir c\IeC {\'o}mo seleccionar a los individuos para ser padres}{8}{subsubsection.2.1.5}
+\contentsline {subsubsection}{\numberline {2.1.6}Decidir c\IeC {\'o}mo reemplazar a los individuos}{8}{subsubsection.2.1.6}
+\contentsline {subsubsection}{\numberline {2.1.7}Decidir la condici\IeC {\'o}n de parada}{8}{subsubsection.2.1.7}
+\contentsline {subsection}{\numberline {2.2}Ejecuci\IeC {\'o}n del software}{9}{subsection.2.2}

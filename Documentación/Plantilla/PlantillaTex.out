@@ -8,4 +8,14 @@
 \BOOKMARK [2][-]{subsection.1.5}{Read}{section.1}% 8
 \BOOKMARK [2][-]{subsection.1.6}{Files}{section.1}% 9
 \BOOKMARK [2][-]{subsection.1.7}{FuzzySystem}{section.1}% 10
-\BOOKMARK [1][-]{section.2}{Ejecuci\363n del software}{}% 11
+\BOOKMARK [2][-]{subsection.1.8}{Ejecuci\363n del software}{section.1}% 11
+\BOOKMARK [1][-]{section.2}{Ampliaci\363n del Software para realizar un aprendizaje de etiquetas linguisticas \(tuning\)}{}% 12
+\BOOKMARK [2][-]{subsection.2.1}{Construcci\363n del algoritmo CHC}{section.2}% 13
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Dise\361ar una representaci\363n}{subsection.2.1}% 14
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Decidir como iniciar \(reiniciar\) una poblaci\363n}{subsection.2.1}% 15
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Dise\361ar una forma de evaluar a un individuo}{subsection.2.1}% 16
+\BOOKMARK [3][-]{subsubsection.2.1.4}{Dise\361ar un operador de cruce adecuado}{subsection.2.1}% 17
+\BOOKMARK [3][-]{subsubsection.2.1.5}{Decidir c\363mo seleccionar a los individuos para ser padres}{subsection.2.1}% 18
+\BOOKMARK [3][-]{subsubsection.2.1.6}{Decidir c\363mo reemplazar a los individuos}{subsection.2.1}% 19
+\BOOKMARK [3][-]{subsubsection.2.1.7}{Decidir la condici\363n de parada}{subsection.2.1}% 20
+\BOOKMARK [2][-]{subsection.2.2}{Ejecuci\363n del software}{section.2}% 21

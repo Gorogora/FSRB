@@ -57,8 +57,9 @@ public class GAFuzzySystem {
                 rt.read();
                 CHC genetico = new CHC(rt);
                 genetico.chc();
-                rt.writeOutputs(Params.OUTPUT_TRA_PATH);
                 db.tuningDataBase(genetico.getPopulation().get(0).getCromosoma());
+                rt.setDb(db);
+                rt.writeOutputs(Params.OUTPUT_TRA_PATH);                
                 db.write();
                 rb.write(db);
                 break;

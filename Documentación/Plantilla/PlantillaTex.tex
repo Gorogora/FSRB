@@ -50,7 +50,7 @@
 \bigskip
 \bigskip
 Profesor: Francisco Alfredo Márquez Hernández y Antonio Peregrín Rubio.\\
-Alumnos: Ana Godoy Pérez y José Manuel Betanzos\\
+Alumnos: Ana Godoy Pérez y José Manuel López Betanzos\\
 \bigskip
 \bigskip
 \bigskip
@@ -146,11 +146,11 @@ El paquete Files contiene los ficheros necesarios para la ejecución del sistema
 Este paquete contiene tanto la clase principal que contiene al \textit{main()}, como una clase en la que se han almacenado los parámetros que se emplearán a lo largo de todo el sistema.
 
 
-\section{Ejecución del software}
+\subsection{Ejecución del software}
 Para ejecutar el software habrá que moverse a la carpeta \textit{FuzzySystem/dist}. Esta carpeta deberá contener el \textit{.jar} y la carpeta \textit{src/Files} con al menos los siguientes archivos: base de reglas, base de datos y fichero de entrenamiento. Además, esta carpeta contará con un README.TXT en el que se explica cómo ejecutar el software.\\
 El controlador difuso se puede lanzar de dos formas:
 \begin{itemize}
-\item Dando un ejemplo de entrada, en cuyo caso devolverá la salida que quedará almacenada en \textit{src/Files/Output.txt}. La instrucción para ejecutar esta opción sería:\\
+\item Dando un ejemplo de entrada, en cuyo caso devolverá la salida que quedará almacenada en \textit{src/Files/Output.txt}. La instrucción para ejecutar esta opción sería:
 \begin{center}
 \textit{java -jar "FuzzySystem.jar" -in valor1 valor2 valori}
 \end{center}
@@ -160,6 +160,89 @@ El controlador difuso se puede lanzar de dos formas:
 \end{center}
 \end{itemize}
 
+
+
+\section{Ampliación del Software para realizar un aprendizaje de etiquetas linguisticas (tuning)}
+Esta ampliación del software permitirá realizar un ajuste paramétrico de las etiquetas lingüísticas de las variables. Para ello se implementará un ajuste mediante un Algoritmo Genético basado en el ajuste de 2-tuplas.
+El ajuste se realizará minimizando el ECM de cada posible solución con el fin de obtener después de diversas generaciones la solución más óptima.\\
+El algoritmo genético empleado es el CHC con los parámetro recomendados en el enunciado de la prática:
+\begin{itemize}
+\item Tamaño de población: 50
+\item Operador de Cruce: BLX-alpha (alpha=0.5)
+\item Probabilidad de Cruce: CHC (1.0)
+\item Criterio de parada: 200 iteraciones
+\end{itemize}
+
+\subsection{Construcción del algoritmo CHC}
+Para construir el algoritmo se han seguido los pasos expuestos en el Tema 2.3 de la asignatura Metahurística cursada en el 4º curso de Grado en Ingeniería Informática. Esos pasos se detallan a continuación:
+
+\subsubsection{Diseñar una representación}
+Cada individuo utilizará una representación real, en la que cada cromosoma tendrá la siguiente forma (donde cada gen está asociado al valor de tuning de la etiqueta correspondiente):
+\begin{center}
+$(c_{11},...,c_{1m^{1}},c_{21},...,c_{2m^{2}},...,c_{n1},...,c_{nm^{n}})$
+\end{center}
+Considerando el siguiente número de etiquetas por variables $(m^{1},m^{2},...,m^{n})$, siendo n el número de variables.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.4\textwidth]{individuo}
+\caption{Codificación de un cromosoma.}
+\label{individuo}
+\end{figure}
+
+\subsubsection{Decidir como iniciar (reiniciar) una población}
+La población (que representará un conjunto de soluciones) se inicializará creando tantos individuos de forma aleatoria, en el intervalo [-0.5,0.5], como tamaño tenga la población, a excepción de uno, que inicializará su cromosoma a cero, es decir, no realizando ningún tuning sobre el conjunto difuso. Este individuo representará la ''solución base''.\\
+La reinicialización o multiarranque en CHC es empleada como mecanismo para producir una alta diversidad alejándose de óptimos locales. Este mecanismo se utilizará cuando el umbral de cruce sea menor que cero, manteniendo al mejor individuo y generando el resto de la población de forma aleatoria. El umbral se inicializa a L/4, siendo L la longitud del cromosoma.
+
+\subsubsection{Diseñar una forma de evaluar a un individuo}
+Para evaluar a un cromosoma se utilizará el error cuadrático medio (ECM):
+\begin{center}
+$MSE = \dfrac{1}{2 \cdot N} \sum_{l=1}^{N}(F(x^{l}) - y^{l})^{2}$
+\end{center}
+Siendo N el número de ejemplos, $F(x^{l})$ la salida obtenida por el sistema difuso tras aplicarle el tuning e $y^{l}$ la salida conocida.
+
+\subsubsection{Diseñar un operador de cruce adecuado}
+El operado de cruce empleado en esta práctica es el $BLX-\alpha$ con $\alpha = 0.5$.
+
+\subsubsection{Decidir cómo seleccionar a los individuos para ser padres}
+Se forman N/2 parejas con los elementos de la población (siendo N el tamaño de la población). Sólo se cruzan las parejas cuyos miembros difieren en un número determinado de bits (umbral de cruce). Si durante un
+ciclo no se produce ni un solo cruce, al umbral de cruce se le resta 1.
+
+\subsubsection{Decidir cómo reemplazar a los individuos}
+Se empleará la selección elitista como método de reemplazamiento. Este método selecciona los N mejores cromosomas entre padres e hijos.
+
+\subsubsection{Decidir la condición de parada}
+La condición de parada se ha establecido como que se cumplan un número determinado de iteraciones. Para determinar este número se han realizado tres ejecuciones, incrementando en cada una de ellas el número de iteraciones en el rango [100,300].\\\\
+
+\begin{tabular}{|c|c|c|}
+\hline 
+Iteraciones & ECMtra & ECMtst \\ 
+\hline 
+100 & 211647.18644149418 & 189450.95883628397 \\ 
+\hline 
+200 & 211641.61045261426 & 189448.078221798 \\ 
+\hline 
+300 & 211641.54301892893 & 189448.03784438976 \\ 
+\hline 
+\end{tabular} 
+~\\
+~\\
+De acuerdo a los resultado el número de iteraciones establecido como criterio de parada es 200.
+
+
+\subsection{Ejecución del software}
+Para ejecutar el software habrá que moverse a la carpeta \textit{GAFuzzySystem/dist}. Esta carpeta deberá contener el \textit{.jar} y la carpeta \textit{src/Files} con al menos los siguientes archivos: base de reglas, base de datos y ficheros y test de entrenamiento. Además, esta carpeta contará con un README.TXT en el que se explica cómo ejecutar el software.\\
+El controlador difuso con ajuste del conjunto difuso mediante el algoritmo CHC se puede lanzar de dos formas:
+\begin{itemize}
+\item Dando un fichero \textit{.tra} que ejecutará el algoritmo CHC para realizar el tuning de la base de datos.
+Esta ejecución producirá como salida un fichero \textit{src/Files/BaseDatos.pwm} con la nueva base de datos resultado de aplicar los desplazamientos indicados por el mejor cromosoma de la población tras la ejecución del algoritmo. Asimismo creará un fichero con la base de reglas con las etiquetas de las reglas actualizadas a los nuevos valores que se guardará como \textit{src/Files/BaseReglas.wm}. Además creará el fichero \textit{src/Files/Output$\_$tra.txt} que recogerá las salidas del fichero de entrenamiento y el ECM. La instrucción para ejecutar esta opción sería:
+\begin{center}
+\textit{java -jar "GAFuzzySystem.jar" -tra ruta$\_$fichero$\_$entrenamiento.tra ruta$\_$base$\_$datos.pwm}
+\end{center}
+\item Dando un fichero de test \textit{.tst}, que tomará la base de datos y la base de reglas obtenida en el entrenamiento, con una secuencia de valores de entrada salida (una línea por cada secuencia), en cuyo caso cogerá por cada línea del fichero de entrenamiento los valores de las variables de entrada y devolverá los valores de la ejecución del controlador. Además, devolverá el error cuadrático medio (ECM). La salida de esta ejecución se almacenará en \textit{src/Files/Output$\_$tst.txt} siguiendo el mismo formato que el que tiene el fichero de test. 
+\begin{center}
+\textit{java -jar "GAFuzzySystem.jar" -tst ruta$\_$fichero$\_$test.tst ruta$\_$base$\_$datos$\_$tuning.pwm}
+\end{center}
+\end{itemize}
 
 \end{document}
 
